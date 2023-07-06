@@ -1,0 +1,149 @@
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+.pokeGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  grid-gap: 5vw;
+  margin-top: 1rem;
+  margin-left: 25rem;
+  margin-right: 25rem;
+  padding: 1em;
+  z-index: 1;
+}
+
+#h2 {
+  position: relative;
+  border-style: none none solid none;
+  border-width: 1px;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 4px;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-family: "Pokemon Solid", sans-serif;
+}
+
+#Att {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#rareColour {
+  font-weight: 600;
+  border: none 1px solid;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #1b1b1b7c;
+}
+
+#typeColour {
+  font-weight: 600;
+  border: none 1px solid;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #1b1b1b81;
+}
+
+.attContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+#hp {
+  color: #ff0000;
+  font-size: 12px;
+}
+
+#damage {
+  color: #300477;
+  font-size: 12px;
+}
+
+#pokeImg {
+  width: 200px;
+  height: auto;
+}
+
+li {
+  margin-top: 10px;
+  list-style: none;
+}
+
+#pagination {
+  position: static;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card_container {
+  height: 300px;
+}
+
+#card.menu__container {
+  width: 200px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  cursor: pointer;
+  transform-origin: center center 0px;
+  transition: all 0.5s ease-out;
+  animation-name: animate;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  transform: perspective(1000px) rotateX(35deg) rotateY(4deg) rotateZ(-30deg);
+  z-index: 1;
+}
+
+#card.menu__container:hover {
+  animation: unset;
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+}
+
+#card.menu__container .menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 100%;
+  height: 100%;
+  color: #fff;
+}
+
+@keyframes animate {
+  0% {
+    margin-top: 1vh;
+  }
+  50% {
+    margin-top: 2vh;
+  }
+  100% {
+    margin-top: 1vh;
+  }
+}
