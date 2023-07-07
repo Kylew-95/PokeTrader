@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
 
 const pages = ["Home", "GymLeaders", "Forum"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Settings"];
 
 function ResponsiveNavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -193,14 +193,14 @@ function ResponsiveNavBar() {
                 </MenuItem>
               ))}
             </Menu>
+            <Button sx={{ left: "1vw" }} variant="contained" onClick={logout}>
+              Logout
+            </Button>
             <Link to={`/Login`}>
               <Button sx={{ left: "1vw" }} variant="contained">
                 Login
               </Button>
             </Link>
-            <Button variant="contained" onClick={logout}>
-              Logout
-            </Button>
           </Box>
         </Toolbar>
       </Container>
