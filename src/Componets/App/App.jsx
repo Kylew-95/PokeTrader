@@ -23,11 +23,10 @@ function App() {
       setPokeData(newPokeData.data); // Set the state to the new data
       // console.log(newPokeData);
       // Do something with pokeData
-      console.log(pokeData);
     }
 
     fetchData();
-  });
+  }, []);
 
   return (
     <>
@@ -48,7 +47,7 @@ function App() {
                     src="/Loading/pokemon title.png"
                     alt=""
                   />
-                  <h2>Click on the card to find out more below</h2>
+                  <h2>Click on the cards to find out more below</h2>
                 </section>
                 <section className="mainContent">
                   <PokeDisplay pokeData={pokeData} />

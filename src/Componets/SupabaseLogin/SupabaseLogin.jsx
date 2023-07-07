@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import "./SupabaseLogin.css";
+import Profile from "../Profile/Profile";
 
 export const supabase = createClient(
   process.env.REACT_APP_POKE_SB_URL,
   process.env.REACT_APP_POKE_SB_KEY
 );
 
-export default function SupabaseLogin() {
+export default function Login() {
   const [userId, setUserId] = useState(null);
   const [session, setSession] = useState(null);
 
@@ -22,25 +24,25 @@ export default function SupabaseLogin() {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setUserId(session?.user.id);
+      console.log(session?.user.id);
     });
 
     return () => subscription.unsubscribe();
-  }, [userId]);
+  }, []);
 
   if (!session) {
     return (
       <div className="totalSignup">
-        <div className="dummyDiv"></div>
-        <h1 className="moreInfo">
-          Sign up as a shelter. Once you have been verified as a partner, you
-          will be able to list your organization's dogs for adoption!
-        </h1>
-        <div className="supabase-login">
-          <Auth supabaseClient={supabase} theme={ThemeSupa} />
+        <div className="auth-container">
+          <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
         </div>
       </div>
     );
   } else {
-    return <div>{/* Render your authenticated content */}</div>;
+    return (
+      <div>
+        <Profile userId={userId} />
+      </div>
+    );
   }
 }

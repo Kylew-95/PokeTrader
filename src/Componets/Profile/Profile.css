@@ -1,6 +1,16 @@
-#logoutBtn {
+.ProfileTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+.signOutbtn {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
+  height: 100vh;
 }

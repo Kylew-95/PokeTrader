@@ -22,7 +22,6 @@ function CardPopup({ poksData, onClose }) {
   return (
     <>
       <div className="overlay"></div>
-      <h3 className="card-popup-content">CLICK ON THE CARD TO FIND OUT MORE</h3>
       <div className="card-popup">
         <>
           <img

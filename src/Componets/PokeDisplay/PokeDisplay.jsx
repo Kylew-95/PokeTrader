@@ -28,7 +28,7 @@ function PokeDisplay({ pokeData }) {
   };
 
   if (!pokeData) {
-    return <h1>Loading...</h1>;
+    return <img src="./Loading/running-pikachu-transparent-snivee.gif" />;
   }
 
   return (

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import "./NavBar.css";
 import pikaIcon from "../Images/pikachu icon.png";
 import AppBar from "@mui/material/AppBar";
@@ -14,14 +14,13 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-import { supabase } from "../SupabaseLogin/SupabaseLogin";
 
 const pages = ["Home", "GymLeaders", "Forum"];
 const settings = ["Profile", "Settings"];
 
 function ResponsiveNavBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,13 +35,6 @@ function ResponsiveNavBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-
-  const logout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.log("Error logging out:", error.message);
-    }
   };
 
   return (
@@ -193,9 +185,6 @@ function ResponsiveNavBar() {
                 </MenuItem>
               ))}
             </Menu>
-            <Button sx={{ left: "1vw" }} variant="contained" onClick={logout}>
-              Logout
-            </Button>
             <Link to={`/Login`}>
               <Button sx={{ left: "1vw" }} variant="contained">
                 Login
