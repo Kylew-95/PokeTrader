@@ -21,7 +21,7 @@ function Profile({ user }) {
         <div>
           <h1 className="ProfileTitle">Profile</h1>
         </div>
-        {/* <h2 className="ProfileName">{user}</h2> */}
+        <h2 className="ProfileName">Hi {user?.first_name}</h2>
         <div className="signOutbtn">
           <Button variant="contained" onClick={signOut}>
             SignOut

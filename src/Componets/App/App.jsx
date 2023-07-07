@@ -60,7 +60,6 @@ function App() {
             path="/"
             element={
               <>
-                {" "}
                 <section className="homepage">
                   <img
                     id="pokemonTitle"
