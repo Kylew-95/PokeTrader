@@ -25,7 +25,7 @@ export default function Login() {
       setSession(session);
       setUserId(session?.user.id);
     });
-
+    //
     return () => subscription.unsubscribe();
   }, []);
 
