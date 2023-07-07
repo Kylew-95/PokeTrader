@@ -1,11 +1,14 @@
-import PokeDisplay from "../PokeDisplay/PokeDisplay";
 import "./App.css";
-import { useEffect, useState } from "react";
+import Profile from "../Profile/Profile";
+import ResponsiveNavBar from "../NavBar/Navbar";
+import PokeDisplay from "../PokeDisplay/PokeDisplay";
+import SupabaseLogin from "../SupabaseLogin/SupabaseLogin";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
-  const [pokeData, setPokeData] = useState("");
+  const [pokeData, setPokeData] = useState(""); // Updated initial state to an empty string
 
-  // pokemon global fetch
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
@@ -17,10 +20,10 @@ function App() {
         }
       );
       const newPokeData = await response.json();
+      setPokeData(newPokeData.data); // Set the state to the new data
       // console.log(newPokeData);
       // Do something with pokeData
-      setPokeData(newPokeData.data);
-      console.log(newPokeData.data);
+      console.log(pokeData);
     }
 
     fetchData();
@@ -28,13 +31,33 @@ function App() {
 
   return (
     <>
-      <section className="homepage">
-        <img id="pokemonTitle" src="/Loading/pokemon title.png" alt="" />
-        <h2>Click on the card to find out more below</h2>
-      </section>
-      <section className="mainContent">
-        <PokeDisplay pokeData={pokeData} />
-      </section>
+      <Router>
+        <ResponsiveNavBar />
+        <Routes>
+          <Route path="Home" element={<PokeDisplay />} />
+          <Route path="Profile" element={<Profile />} />
+          <Route path="/Login" element={<SupabaseLogin />} />
+          <Route
+            path="/"
+            element={
+              <>
+                {" "}
+                <section className="homepage">
+                  <img
+                    id="pokemonTitle"
+                    src="/Loading/pokemon title.png"
+                    alt=""
+                  />
+                  <h2>Click on the card to find out more below</h2>
+                </section>
+                <section className="mainContent">
+                  <PokeDisplay pokeData={pokeData} />
+                </section>
+              </>
+            }
+          />
+        </Routes>
+      </Router>
     </>
   );
 }

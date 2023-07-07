@@ -40,29 +40,15 @@ section.mainContent {
   /* background-color: #282c34; */
 }
 
-@media screen and (max-width: 910px) {
-  #pokemonTitle {
-    height: 40vh;
-    width: 100%;
-  }
-}
-@media screen and (max-width: 768px) {
-  #pokemonTitle {
-    height: 30vh;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 462px) {
-  #pokemonTitle {
-    height: 25vh;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 425px) {
-  #pokemonTitle {
-    height: 20vh;
-    width: 100%;
-  }
+/* i need the pokemonTitle to grow and shrink, its an image */
+#pokemonTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 60vw;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }

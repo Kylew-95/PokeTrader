@@ -2,7 +2,7 @@ export const rareColors = {
   Common: "gray",
   Promo: "gold",
   Rare: "blue",
-  "Rare Holo": "red",
+  "Rare Holo": "#4b8bb4",
   "Rare Holo EX": "red",
   "Rare Holo GX": "green",
   "Rare Holo V": "orange",
