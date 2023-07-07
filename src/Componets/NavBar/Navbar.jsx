@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 const pages = ["Home", "GymLeaders", "Forum"];
 const settings = ["Profile", "Settings"];
 
-function ResponsiveNavBar() {
+function ResponsiveNavBar({ user }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -150,8 +150,8 @@ function ResponsiveNavBar() {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   sx={{ width: 32, height: 32 }}
-                  alt="Kyle"
-                  src="/static/images/avatar/1.jpg"
+                  alt={user?.email}
+                  src={"/static/images/avatar/1.jpg"}
                 />
               </IconButton>
             </Tooltip>

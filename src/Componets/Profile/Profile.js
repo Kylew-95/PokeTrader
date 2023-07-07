@@ -21,7 +21,7 @@ function Profile({ user }) {
         <div>
           <h1 className="ProfileTitle">Profile</h1>
         </div>
-        <h2 className="ProfileName">Hi {user?.email}</h2>
+        <h2 className="ProfileName">Hi {user?.email} is this your email?</h2>
         <div className="signOutbtn">
           <Button variant="contained" onClick={signOut}>
             SignOut
