@@ -33,18 +33,28 @@ function App() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const { data, error } = await supabase
-        .from("new_users")
-        .select("*")
-        .limit(1); // Limit the query to retrieve only 1 row
+      const { user, error } = await supabase.auth.getSession();
 
       if (error) {
         console.log("Error fetching user data:", error);
+      } else if (user) {
+        const { data, error } = await supabase
+          .from("new_users")
+          .select("*")
+          .eq("new_user_id", user.id)
+          .single(); // Use 'single()' to retrieve a single user
+
+        if (error) {
+          console.log("Error fetching user data:", error);
+        } else {
+          setUser(data);
+          console.log("User data:", data);
+        }
       } else {
-        setUser(data[0]); // Access the first row of data
-        console.log("User data:", data[0]);
+        console.log("User is not authenticated");
       }
     }
+
     fetchUserData();
   }, []);
 
