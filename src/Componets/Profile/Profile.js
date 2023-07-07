@@ -4,11 +4,11 @@ import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function Profile() {
+function Profile({ user }) {
   const navigate = useNavigate();
 
   async function signOut() {
-    await supabase.auth.signOut();
+    await supabase.auth.signOut().then;
     const navigateTo = () => {
       navigate("/Login");
     };
@@ -16,14 +16,19 @@ function Profile() {
   }
 
   return (
-    <div>
-      <h1 className="ProfileTitle">Profile</h1>
-      <div className="signOutbtn">
-        <Button variant="contained" onClick={signOut}>
-          SignOut
-        </Button>
+    <>
+      <div className="ProfileContainer">
+        <div>
+          <h1 className="ProfileTitle">Profile</h1>
+        </div>
+        {/* <h2 className="ProfileName">{user}</h2> */}
+        <div className="signOutbtn">
+          <Button variant="contained" onClick={signOut}>
+            SignOut
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

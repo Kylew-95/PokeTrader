@@ -2,12 +2,14 @@ import "./App.css";
 import Profile from "../Profile/Profile";
 import ResponsiveNavBar from "../NavBar/Navbar";
 import PokeDisplay from "../PokeDisplay/PokeDisplay";
+import { supabase } from "../SupabaseLogin/SupabaseLogin.jsx";
 import SupabaseLogin from "../SupabaseLogin/SupabaseLogin";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
-  const [pokeData, setPokeData] = useState(""); // Updated initial state to an empty string
+  const [pokeData, setPokeData] = useState(""); //
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -29,13 +31,30 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    async function fetchUserData() {
+      const { data, error } = await supabase
+        .from("new_users")
+        .select("*")
+        .limit(1); // Limit the query to retrieve only 1 row
+
+      if (error) {
+        console.log("Error fetching user data:", error);
+      } else {
+        setUser(data[0]); // Access the first row of data
+        console.log("User data:", data[0]);
+      }
+    }
+    fetchUserData();
+  }, []);
+
   return (
     <>
       <Router>
-        <ResponsiveNavBar />
+        <ResponsiveNavBar userId={user} />
         <Routes>
           <Route path="Home" element={<PokeDisplay />} />
-          <Route path="Profile" element={<Profile />} />
+          <Route path="Profile" element={<Profile user={user} />} />
           <Route path="/Login" element={<SupabaseLogin />} />
           <Route
             path="/"

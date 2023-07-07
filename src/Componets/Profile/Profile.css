@@ -1,16 +1,24 @@
 .ProfileTitle {
-  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.signOutbtn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+bottom: 20px;
+  height: 0vh;
+}
+
+.ProfileName {
+  font-size: 1.5rem;
   font-weight: 600;
   margin: 0;
   padding: 0;
   text-align: center;
   color: #000;
   margin-bottom: 1rem;
-}
-
-.signOutbtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
