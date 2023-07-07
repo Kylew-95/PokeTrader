@@ -33,30 +33,34 @@ function App() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const { user, error } = await supabase.auth.getSession();
-
-      if (error) {
-        console.log("Error fetching user data:", error);
-      } else if (user) {
-        const { data, error } = await supabase
-          .from("new_users")
-          .select("*")
-          .eq("new_user_id", user.id)
-          .single(); // Use 'single()' to retrieve a single user
-
-        if (error) {
-          console.log("Error fetching user data:", error);
-        } else {
-          setUser(data);
-          console.log("User data:", data);
-        }
-      } else {
-        console.log("User is not authenticated");
-      }
+      const user = await supabase.auth.getUser();
+      setUser(user.data.user);
+      console.log(user.data.user);
     }
-
     fetchUserData();
   }, []);
+
+  // useEffect(() => {
+  //   async function fetchUserData() {
+  //     const user = await supabase.auth.getUser();
+  //     console.log(user);
+  //     const { data, error } = await supabase
+  //       .from("new_users")
+  //       .select("*")
+  //       // .eq("new_user_id", user.id)
+  //       .ilike("first_name", user?.first_name);
+  //       console.log(data)
+  //     if (error) {
+  //       throw error;
+  //     }
+  //     if (data) {
+  //       setUser(data);
+  //       console.log(data);
+  //     }
+  //   }
+
+  //   fetchUserData();
+  // }, []);
 
   return (
     <>
