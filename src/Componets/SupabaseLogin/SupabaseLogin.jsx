@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+// import movingGif from "../Images/ezgif-5-3ce14079c5.gif";
+import battlegif from "../Images/pokemon-battle-pokemon.gif";
 import "./SupabaseLogin.css";
 import Profile from "../Profile/Profile";
 
@@ -31,11 +33,27 @@ export default function Login() {
 
   if (!session) {
     return (
-      <div className="totalSignup">
-        <div className="auth-container">
-          <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+      <>
+        <div className="totalSignup">
+          <div>
+            <Auth
+              providers={["google"]}
+              supabaseClient={supabase}
+              appearance={{
+                theme: ThemeSupa,
+                extends: "false",
+                className: { container: "auth-container" },
+              }}
+            />
+          </div>
+          {/* <div className="movingGif">
+            <img id="movingGifId" src={movingGif} alt="moving gif" />
+          </div> */}
         </div>
-      </div>
+        <div className="battleGif">
+          <img id="battleGifId" src={battlegif} alt="moving gif" />
+        </div>
+      </>
     );
   } else {
     return (
