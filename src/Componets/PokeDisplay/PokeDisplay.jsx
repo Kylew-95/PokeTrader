@@ -14,7 +14,7 @@ function PokeDisplay({ pokeData }) {
     setCurrentPage(page);
   };
 
-  const itemsPerPage = 8; // Number of items to display per page
+  const itemsPerPage = 9; // Number of items to display per page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentPokeData = pokeData?.slice(startIndex, endIndex) || [];
