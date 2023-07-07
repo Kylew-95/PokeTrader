@@ -2,14 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 20vh;
 }
 .signOutbtn {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-bottom: 20px;
+  bottom: 20px;
   height: 0vh;
 }
 
