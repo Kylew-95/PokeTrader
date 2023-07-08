@@ -73,7 +73,7 @@ function App() {
           <Route path="Home" element={<PokeDisplay />} />
           <Route
             path="Profile"
-            element={<Profile user={user} faviorteCard={favouriteCardArray} />}
+            element={<Profile user={user} favouriteCard={favouriteCardArray} />}
           />
           <Route path="/Login" element={<SupabaseLogin />} />
           <Route
@@ -91,7 +91,7 @@ function App() {
                 <section className="mainContent">
                   <PokeDisplay
                     pokeData={pokeData}
-                    faviorteCard={favouriteCardArray}
+                    favouriteCard={favouriteCardArray}
                     userid={user}
                   />
                 </section>

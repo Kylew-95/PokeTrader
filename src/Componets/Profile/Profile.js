@@ -11,7 +11,12 @@ function Profile({ user }) {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/Login");
-    window.location.reload(); // Trigger refresh after logout
+    window.location.reload();
+  };
+
+  const returnUser = () => {
+    navigate("/Login");
+    return null;
   };
 
   function handleFirstName() {
@@ -19,22 +24,26 @@ function Profile({ user }) {
     return firstName;
   }
 
-  return (
-    <>
-      <div className="ProfileContainer">
-        <div>
-          <h1 className="ProfileTitle">Welcome Back {handleFirstName()}</h1>
+  if (!user) {
+    return returnUser();
+  } else {
+    return (
+      <>
+        <div className="ProfileContainer">
+          <div>
+            <h1 className="ProfileTitle">Welcome Back {handleFirstName()}</h1>
+          </div>
+          <h2 className="ProfileName">Hi {user?.email} is this your email?</h2>
+          <SwiperComp />
+          <div className="signOutbtn">
+            <Button variant="contained" onClick={handleLogout}>
+              SignOut
+            </Button>
+          </div>
         </div>
-        <h2 className="ProfileName">Hi {user?.email} is this your email?</h2>
-        <SwiperComp />
-        <div className="signOutbtn">
-          <Button variant="contained" onClick={handleLogout}>
-            SignOut
-          </Button>
-        </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
 
 export default Profile;

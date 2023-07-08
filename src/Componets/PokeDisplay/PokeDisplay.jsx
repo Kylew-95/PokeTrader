@@ -9,7 +9,7 @@ import { rareColors, typeColors } from "./Types";
 import "./PokeDisplay.css";
 import { Button } from "@mui/material";
 
-function PokeDisplay({ pokeData, faviorteCard, userid }) {
+function PokeDisplay({ pokeData, favouriteCard, userid }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -30,37 +30,24 @@ function PokeDisplay({ pokeData, faviorteCard, userid }) {
     setSelectedCard(null);
   };
 
-  const handleToFavourite = ({ faviorteCard, userid }) => {
+  useEffect(() => {
     async function handleFavouriteCard() {
-      console.log("faviorteCard:", faviorteCard);
-      console.log("userid:", userid);
-
-      if (!Array.isArray(faviorteCard)) {
-        console.log("faviorteCard is not an array");
-        return;
-      }
-
-      const NewfavouriteCard = faviorteCard?.filter(
+      const NewfavouriteCard = favouriteCard?.filter(
         (card) => card.images.small === true
       );
 
-      console.log("NewfavouriteCard:", NewfavouriteCard);
-
-      if (!NewfavouriteCard || NewfavouriteCard.length === 0) {
-        return; // Exit the function if NewfavouriteCard is undefined or empty
-      }
+      console.log(userid?.id);
 
       const { data, error } = await supabase
         .from("user_faviourtes")
         .insert({ favourite_cards: NewfavouriteCard })
         .eq("user_id", userid?.id);
-
-      console.log("Insert data:", data);
-      console.log("Insert error:", error);
+      console.log(data);
+      console.log(error);
     }
 
     handleFavouriteCard();
-  };
+  }, [favouriteCard, userid]);
 
   if (!pokeData) {
     return (
@@ -118,7 +105,7 @@ function PokeDisplay({ pokeData, faviorteCard, userid }) {
                   <span id="hp">Hp </span>
                   {poksData.hp}
                 </h3>
-                <Button variant="contained" onClick={handleToFavourite}>
+                <Button variant="contained" onClick={favouriteCard}>
                   Add to Faviourites
                 </Button>
                 <h3>
