@@ -37,6 +37,11 @@ function ResponsiveNavBar({ user }) {
     setAnchorElUser(null);
   };
 
+  const handleUpperCase = (user) => {
+    const userAvatar = user.user_metadata.full_name;
+    return userAvatar.toUpperCase();
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -149,51 +154,58 @@ function ResponsiveNavBar({ user }) {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
-                  sx={{ width: 32, height: 32 }}
-                  alt={user?.email}
+                  sx={{ width: 32, height: 32, bgcolor: "orange" }}
+                  alt={
+                    user ? handleUpperCase(user) : "User is not logged in yet"
+                  }
                   src={"/static/images/avatar/1.jpg"}
                 />
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-                color: "blue",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">
-                    <Link
-                      style={{ textDecoration: "none", color: "black" }}
-                      to={`${setting}`}
-                    >
-                      {setting}
-                    </Link>
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-            <Link to={`/Login`}>
-              <Button sx={{ left: "1vw" }} variant="contained">
-                Login
-              </Button>
-            </Link>
+            {user ? (
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                  color: "blue",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link
+                        style={{ textDecoration: "none", color: "black" }}
+                        to={`${setting}`}
+                      >
+                        {setting}
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            ) : null}
+            {!user && (
+              <Link to={`/Login`}>
+                <Button sx={{ left: "1vw" }} variant="contained">
+                  Login
+                </Button>
+              </Link>
+            )}
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+
 export default ResponsiveNavBar;

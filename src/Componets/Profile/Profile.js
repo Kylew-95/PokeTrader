@@ -7,13 +7,11 @@ import { useNavigate } from "react-router-dom";
 function Profile({ user }) {
   const navigate = useNavigate();
 
-  async function signOut() {
-    await supabase.auth.signOut().then;
-    const navigateTo = () => {
-      navigate("/Login");
-    };
-    navigateTo();
-  }
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/Login");
+    window.location.reload(); // Trigger refresh after logout
+  };
 
   return (
     <>
@@ -23,7 +21,7 @@ function Profile({ user }) {
         </div>
         <h2 className="ProfileName">Hi {user?.email} is this your email?</h2>
         <div className="signOutbtn">
-          <Button variant="contained" onClick={signOut}>
+          <Button variant="contained" onClick={handleLogout}>
             SignOut
           </Button>
         </div>

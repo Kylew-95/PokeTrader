@@ -65,7 +65,7 @@ function App() {
   return (
     <>
       <Router>
-        <ResponsiveNavBar userId={user} />
+        <ResponsiveNavBar user={user} />
         <Routes>
           <Route path="Home" element={<PokeDisplay />} />
           <Route path="Profile" element={<Profile user={user} />} />

@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-// import movingGif from "../Images/ezgif-5-3ce14079c5.gif";
 import battlegif from "../Images/pokemon-battle-pokemon.gif";
 import "./SupabaseLogin.css";
-import Profile from "../Profile/Profile";
+import { useNavigate } from "react-router-dom";
 
 export const supabase = createClient(
   process.env.REACT_APP_POKE_SB_URL,
@@ -13,8 +12,8 @@ export const supabase = createClient(
 );
 
 export default function Login() {
-  const [userId, setUserId] = useState(null);
   const [session, setSession] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -25,16 +24,17 @@ export default function Login() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      setUserId(session?.user.id);
-      
+      if (session) {
+        navigate("/Profile");
+      }
     });
-    //
-    return () => subscription.unsubscribe();
-  }, []);
 
-  if (!session) {
-    return (
-      <>
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  return (
+    <>
+      {!session ? (
         <div className="totalSignup">
           <div>
             <Auth
@@ -47,20 +47,11 @@ export default function Login() {
               }}
             />
           </div>
-          {/* <div className="movingGif">
-            <img id="movingGifId" src={movingGif} alt="moving gif" />
-          </div> */}
         </div>
-        <div className="battleGif">
-          <img id="battleGifId" src={battlegif} alt="moving gif" />
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <div>
-        <Profile userId={userId} />
+      ) : null}
+      <div className="battleGif">
+        <img id="battleGifId" src={battlegif} alt="moving gif" />
       </div>
-    );
-  }
+    </>
+  );
 }
