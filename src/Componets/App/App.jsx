@@ -10,7 +10,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
   const [pokeData, setPokeData] = useState(""); //
   const [user, setUser] = useState(null);
+  const [favouriteCard, setFavouriteCard] = useState([]);
 
+  const favouriteCardArray = Array.isArray(favouriteCard) ? favouriteCard : [];
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
@@ -23,7 +25,8 @@ function App() {
       );
       const newPokeData = await response.json();
       setPokeData(newPokeData.data); // Set the state to the new data
-      // console.log(newPokeData);
+      setFavouriteCard(newPokeData.data[0].images?.small);
+      // console.log(newPokeData.data[0].images?.small);
       // Do something with pokeData
     }
 
@@ -35,7 +38,7 @@ function App() {
     async function fetchUserData() {
       const user = await supabase.auth.getUser();
       setUser(user.data.user);
-      console.log(user.data.user);
+      // console.log(user.data.user);
     }
     fetchUserData();
   }, []);
@@ -68,7 +71,10 @@ function App() {
         <ResponsiveNavBar user={user} />
         <Routes>
           <Route path="Home" element={<PokeDisplay />} />
-          <Route path="Profile" element={<Profile user={user} />} />
+          <Route
+            path="Profile"
+            element={<Profile user={user} faviorteCard={favouriteCardArray} />}
+          />
           <Route path="/Login" element={<SupabaseLogin />} />
           <Route
             path="/"
@@ -83,7 +89,11 @@ function App() {
                   <h2>Click on the cards to find out more below</h2>
                 </section>
                 <section className="mainContent">
-                  <PokeDisplay pokeData={pokeData} />
+                  <PokeDisplay
+                    pokeData={pokeData}
+                    faviorteCard={favouriteCardArray}
+                    userid={user}
+                  />
                 </section>
               </>
             }

@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import CardPopup from "../CardPopup/CardPopup";
 import Grid from "@mui/material/Grid";
+import { supabase } from "../SupabaseLogin/SupabaseLogin";
+
 import { rareColors, typeColors } from "./Types";
 import "./PokeDisplay.css";
+import { Button } from "@mui/material";
 
-function PokeDisplay({ pokeData }) {
+function PokeDisplay({ pokeData, faviorteCard, userid }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -25,6 +28,38 @@ function PokeDisplay({ pokeData }) {
 
   const handleClosePopup = () => {
     setSelectedCard(null);
+  };
+
+  const handleToFavourite = ({ faviorteCard, userid }) => {
+    async function handleFavouriteCard() {
+      console.log("faviorteCard:", faviorteCard);
+      console.log("userid:", userid);
+
+      if (!Array.isArray(faviorteCard)) {
+        console.log("faviorteCard is not an array");
+        return;
+      }
+
+      const NewfavouriteCard = faviorteCard?.filter(
+        (card) => card.images.small === true
+      );
+
+      console.log("NewfavouriteCard:", NewfavouriteCard);
+
+      if (!NewfavouriteCard || NewfavouriteCard.length === 0) {
+        return; // Exit the function if NewfavouriteCard is undefined or empty
+      }
+
+      const { data, error } = await supabase
+        .from("user_faviourtes")
+        .insert({ favourite_cards: NewfavouriteCard })
+        .eq("user_id", userid?.id);
+
+      console.log("Insert data:", data);
+      console.log("Insert error:", error);
+    }
+
+    handleFavouriteCard();
   };
 
   if (!pokeData) {
@@ -83,6 +118,9 @@ function PokeDisplay({ pokeData }) {
                   <span id="hp">Hp </span>
                   {poksData.hp}
                 </h3>
+                <Button variant="contained" onClick={handleToFavourite}>
+                  Add to Faviourites
+                </Button>
                 <h3>
                   <span id="market">
                     ${poksData.cardmarket?.prices.trendPrice}
