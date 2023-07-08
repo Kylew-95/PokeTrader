@@ -36,7 +36,7 @@ function ResponsiveNavBar({ user }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  //
   const handleUpperCase = (user) => {
     const userAvatar = user.user_metadata.full_name;
     return userAvatar.toUpperCase();
