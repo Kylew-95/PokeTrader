@@ -26,6 +26,7 @@ export default function Login() {
       setSession(session);
       if (session) {
         navigate("/Profile");
+        window.location.reload();
       }
     });
 

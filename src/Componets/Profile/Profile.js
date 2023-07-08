@@ -14,11 +14,16 @@ function Profile({ user }) {
     window.location.reload(); // Trigger refresh after logout
   };
 
+  function handleFirstName() {
+    const firstName = user?.user_metadata.full_name.split(" ")[0];
+    return firstName;
+  }
+
   return (
     <>
       <div className="ProfileContainer">
         <div>
-          <h1 className="ProfileTitle">Profile</h1>
+          <h1 className="ProfileTitle">Welcome Back {handleFirstName()}</h1>
         </div>
         <h2 className="ProfileName">Hi {user?.email} is this your email?</h2>
         <SwiperComp />
