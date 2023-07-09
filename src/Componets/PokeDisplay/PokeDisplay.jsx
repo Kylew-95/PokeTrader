@@ -110,7 +110,7 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
                   {poksData.hp}
                 </h3>
                 <Button onClick={handleFavouriteCard} variant="contained">
-                  Add to Faviourites
+                  Add to Favourites
                 </Button>
                 <h3>
                   <span id="market">
