@@ -49,7 +49,6 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
       console.log(data);
       console.log(error);
     }
-
     handleFavouriteCard();
   }, [favouriteCard, userid?.id]);
 
@@ -109,7 +108,9 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
                   <span id="hp">Hp </span>
                   {poksData.hp}
                 </h3>
-                <Button variant="contained">Add to Faviourites</Button>
+                <Button onClick={favouriteCard} variant="contained">
+                  Add to Faviourites
+                </Button>
                 <h3>
                   <span id="market">
                     ${poksData.cardmarket?.prices.trendPrice}
