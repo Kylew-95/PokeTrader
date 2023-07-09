@@ -20,7 +20,9 @@ export default function SwiperComp({ user }) {
     async function fetchUserData() {
       const { data, error } = await supabase
         .from("user_faviourtes")
-        .select("*");
+        .select("*")
+        .eq("faviourte_id", user.id);
+
       if (error) {
         throw error;
       }
@@ -52,8 +54,8 @@ export default function SwiperComp({ user }) {
         modules={[EffectCoverflow, Pagination]}
         className="swiper"
       >
-        {swiperData?.map((photo) => (
-          <SwiperSlide className="swiper-slide" key={photo}>
+        {swiperData.map((photo) => (
+          <SwiperSlide className="swiper-slide" key={photo.id}>
             <div className="swiper-slide">
               <img src={photo.faviourte_cards} alt="" />
             </div>
