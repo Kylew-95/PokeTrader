@@ -32,24 +32,26 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
 
   useEffect(() => {
     async function handleFavouriteCard() {
-      const newfavouriteCardFilter = favouriteCard?.filter(
-        (card) => card.images.small === true
+      const newFavouriteCardFilter = favouriteCard?.filter(
+        (card) => card.images?.small === true
       );
 
-      const newFavouriteCard = newfavouriteCardFilter?.map((card) => card.id);
-
-      console.log(userid?.id);
+      const newFavouriteCard = newFavouriteCardFilter?.map(
+        (card) => card.images?.small
+      );
 
       const { data, error } = await supabase
-        .from("user_faviourtes")
-        .insert({ favourite_cards: newFavouriteCard })
+        .from("user_favourites")
+        .insert([{ favourite_cards: newFavouriteCard }])
         .eq("user_id", userid?.id);
+
+      console.log(newFavouriteCard);
       console.log(data);
       console.log(error);
     }
 
     handleFavouriteCard();
-  }, [favouriteCard, userid]);
+  }, [favouriteCard, userid?.id]);
 
   if (!pokeData) {
     return (

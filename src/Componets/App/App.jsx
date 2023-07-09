@@ -25,8 +25,8 @@ function App() {
       );
       const newPokeData = await response.json();
       setPokeData(newPokeData.data); // Set the state to the new data
-      setFavouriteCard(newPokeData.data[0].images?.small);
-      // console.log(newPokeData.data[0].images?.small);
+      setFavouriteCard(newPokeData.data.images?.small);
+      // console.log(newPokeData.data.images?.small);
       // Do something with pokeData
     }
 
