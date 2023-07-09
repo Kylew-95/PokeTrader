@@ -32,15 +32,17 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
 
   useEffect(() => {
     async function handleFavouriteCard() {
-      const NewfavouriteCard = favouriteCard?.filter(
+      const newfavouriteCardFilter = favouriteCard?.filter(
         (card) => card.images.small === true
       );
+
+      const newFavouriteCard = newfavouriteCardFilter?.map((card) => card.id);
 
       console.log(userid?.id);
 
       const { data, error } = await supabase
         .from("user_faviourtes")
-        .insert({ favourite_cards: NewfavouriteCard })
+        .insert({ favourite_cards: newFavouriteCard })
         .eq("user_id", userid?.id);
       console.log(data);
       console.log(error);
@@ -105,9 +107,7 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
                   <span id="hp">Hp </span>
                   {poksData.hp}
                 </h3>
-                <Button variant="contained" onClick={favouriteCard}>
-                  Add to Faviourites
-                </Button>
+                <Button variant="contained">Add to Faviourites</Button>
                 <h3>
                   <span id="market">
                     ${poksData.cardmarket?.prices.trendPrice}
