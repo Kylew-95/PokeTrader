@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SwiperComp from "./SwiperComp/SwiperComp";
 
-function Profile({ user }) {
+function Profile({ user, favouriteCard }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -33,8 +33,8 @@ function Profile({ user }) {
           <div>
             <h1 className="ProfileTitle">Welcome Back {handleFirstName()}</h1>
           </div>
-          <h2 className="ProfileName">Hi {user?.email} is this your email?</h2>
-          <SwiperComp />
+          {/* <h2 className="ProfileName">Hi {user?.email} is this your email?</h2> */}
+          <SwiperComp user={user} favouriteCard={favouriteCard} />
           <div className="signOutbtn">
             <Button variant="contained" onClick={handleLogout}>
               SignOut

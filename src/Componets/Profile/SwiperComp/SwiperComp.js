@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import miles from "../../Images/pikachu icon.png";
+import { supabase } from "../../SupabaseLogin/SupabaseLogin";
+// import miles from "../../Images/pikachu icon.png";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -10,8 +11,27 @@ import "../SwiperComp/SwiperComp.css";
 // import required modules
 import { EffectCoverflow, Pagination } from "swiper/modules";
 
-export default function SwiperComp() {
-  const photos = [miles, miles, miles, miles, miles, miles, miles, miles];
+export default function SwiperComp({ user }) {
+  const [swiperData, setSwiperData] = useState([]);
+
+  console.log(swiperData);
+
+  useEffect(() => {
+    async function fetchUserData() {
+      const { data, error } = await supabase
+        .from("user_faviourtes")
+        .select("*");
+      if (error) {
+        throw error;
+      }
+      if (data) {
+        setSwiperData(data);
+        console.log(data); // this is the data you want to map over
+        // yes, you can map over data here
+      }
+    }
+    fetchUserData();
+  }, [user]);
 
   return (
     <>
@@ -32,10 +52,10 @@ export default function SwiperComp() {
         modules={[EffectCoverflow, Pagination]}
         className="swiper"
       >
-        {photos.map((photo) => (
+        {swiperData?.map((photo) => (
           <SwiperSlide className="swiper-slide" key={photo}>
             <div className="swiper-slide">
-              <img src={photo} alt="" />
+              <img src={photo.faviourte_cards} alt="" />
             </div>
           </SwiperSlide>
         ))}

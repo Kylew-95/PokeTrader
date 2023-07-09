@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import CardPopup from "../CardPopup/CardPopup";
@@ -30,26 +30,27 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
     setSelectedCard(null);
   };
 
-  useEffect(() => {
-    async function handleFavouriteCard() {
-      const newFavouriteCardFilter = favouriteCard?.filter(
-        (card) => card.images?.small === true
-      );
+  const handleFavouriteCard = useCallback(async () => {
+    // const newFavouriteCard = Array.isArray(favouriteCard)
+    //   ? favouriteCard
+    //       .filter((card) => card.images?.small) // Check if card.images?.small exists and is truthy
+    //       .map((card) => card.images.small)
+    //   : [];
 
-      const newFavouriteCard = newFavouriteCardFilter?.map(
-        (card) => card.images?.small
-      );
+    console.log("favouriteCard:", favouriteCard);
+    // console.log("filteredCards:", newFavouriteCard);
 
+    try {
+      // UPSERT MATCHING ROWS
       const { data, error } = await supabase
-        .from("user_favourites")
-        .insert([{ favourite_cards: newFavouriteCard }])
-        .eq("user_id", userid?.id);
+        .from("user_faviourtes")
+        .upsert([{ faviourte_id: userid?.id, faviourte_cards: favouriteCard }])
+        .select();
 
-      console.log(newFavouriteCard);
-      console.log(data);
-      console.log(error);
+      console.log(data, error);
+    } catch (error) {
+      console.error("Error during upsert:", error);
     }
-    handleFavouriteCard();
   }, [favouriteCard, userid?.id]);
 
   if (!pokeData) {
@@ -108,7 +109,7 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
                   <span id="hp">Hp </span>
                   {poksData.hp}
                 </h3>
-                <Button onClick={favouriteCard} variant="contained">
+                <Button onClick={handleFavouriteCard} variant="contained">
                   Add to Faviourites
                 </Button>
                 <h3>

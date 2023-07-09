@@ -8,11 +8,10 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
-  const [pokeData, setPokeData] = useState(""); //
+  const [pokeData, setPokeData] = useState("");
   const [user, setUser] = useState(null);
   const [favouriteCard, setFavouriteCard] = useState([]);
 
-  const favouriteCardArray = Array.isArray(favouriteCard) ? favouriteCard : [];
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
@@ -25,8 +24,8 @@ function App() {
       );
       const newPokeData = await response.json();
       setPokeData(newPokeData.data); // Set the state to the new data
-      setFavouriteCard(newPokeData.data.images?.small);
-      // console.log(newPokeData.data.images?.small);
+      setFavouriteCard(newPokeData?.data[0]?.images.small || []);
+      // console.log(newPokeData?.data[0]?.images.small);
       // Do something with pokeData
     }
 
@@ -73,7 +72,7 @@ function App() {
           <Route path="Home" element={<PokeDisplay />} />
           <Route
             path="Profile"
-            element={<Profile user={user} favouriteCard={favouriteCardArray} />}
+            element={<Profile user={user} favouriteCard={favouriteCard} />}
           />
           <Route path="/Login" element={<SupabaseLogin />} />
           <Route
@@ -91,7 +90,7 @@ function App() {
                 <section className="mainContent">
                   <PokeDisplay
                     pokeData={pokeData}
-                    favouriteCard={favouriteCardArray}
+                    favouriteCard={favouriteCard}
                     userid={user}
                   />
                 </section>
