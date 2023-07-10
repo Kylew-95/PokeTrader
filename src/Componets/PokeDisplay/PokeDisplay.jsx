@@ -66,7 +66,6 @@ function PokeDisplay({ pokeData, userid }) {
 
   return (
     <>
-      {/*  */}
       <Stack id="pagination" spacing={2}>
         <Pagination
           count={Math.ceil(pokeData.length / itemsPerPage)}
