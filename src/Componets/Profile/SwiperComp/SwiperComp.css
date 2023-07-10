@@ -1,7 +1,14 @@
 .swiper {
   width: 43%;
   bottom: 0;
-  margin-bottom: 0;
+  margin-bottom: 20px;
+}
+
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: 3rem;
 }
 
 .swiper-slide {

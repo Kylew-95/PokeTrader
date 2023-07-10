@@ -1,3 +1,58 @@
+* {
+  --main-yellow: rgb(251, 202, 60);
+}
+
+.ProfileContainerMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.navExtender {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 15rem;
+  width: 100%;
+  background-color: var(--main-yellow);
+}
+
+.ProfileData {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30rem;
+  width: 20rem;
+  background-color: rgb(255, 255, 255);
+  /* border: solid 1px rgb(0, 0, 0); */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+  margin-left: 5vw;
+  top: 21vh;
+}
+
+.ProfileAvatar {
+  position: absolute;
+  bottom: 25vh;
+}
+
+#ProfileName {
+  position: absolute;
+  bottom: 20vh;
+  font-size: 2.1rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: #000;
+  margin-bottom: 10rem;
+}
+
 .ProfileTitle {
   display: flex;
   justify-content: center;

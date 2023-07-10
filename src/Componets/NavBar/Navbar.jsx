@@ -47,9 +47,7 @@ function ResponsiveNavBar({ user }) {
       position="fixed"
       style={{
         backgroundColor: "rgb(251, 202, 60)",
-        boxShadow:
-          "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;",
-      }}
+        boxShadow: "none",}}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>

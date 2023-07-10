@@ -1,7 +1,7 @@
 import React from "react";
 import "./Profile.css";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SwiperComp from "./SwiperComp/SwiperComp";
 
@@ -29,17 +29,40 @@ function Profile({ user, favouriteCard }) {
   } else {
     return (
       <>
+        <div className="navExtender"></div>
+        <aside className="ProfileData">
+          <Avatar
+            className="ProfileAvatar"
+            autoCapitalize=""
+            sx={{ width: 170, height: 170, fontSize: "5rem" }}
+          >
+            {user?.user_metadata.full_name[0]}
+          </Avatar>
+          <h2 id="ProfileName">Hi {handleFirstName()}</h2>
+          <p>{user.aud}</p>
+        </aside>
         <div className="ProfileContainer">
-          <div>
-            <h1 className="ProfileTitle">Welcome Back {handleFirstName()}</h1>
+          <div className="ProfileContainerMain">
+            <h3
+              style={{
+                position: "absolute",
+                display: "flex",
+                marginBottom: "30rem",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "2rem",
+              }}
+              className="ProfileTitle"
+            >
+              Your Favourite Pokemon
+            </h3>
+            <SwiperComp user={user} favouriteCard={favouriteCard} />
           </div>
-          {/* <h2 className="ProfileName">Hi {user?.email} is this your email?</h2> */}
-          <SwiperComp user={user} favouriteCard={favouriteCard} />
-          <div className="signOutbtn">
-            <Button variant="contained" onClick={handleLogout}>
-              SignOut
-            </Button>
-          </div>
+        </div>
+        <div className="signOutbtn">
+          <Button variant="contained" onClick={handleLogout}>
+            SignOut
+          </Button>
         </div>
       </>
     );
