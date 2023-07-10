@@ -9,14 +9,14 @@ import { rareColors, typeColors } from "./Types";
 import "./PokeDisplay.css";
 import { Button } from "@mui/material";
 
-function PokeDisplay({ pokeData, favouriteCard, userid }) {
+function PokeDisplay({ pokeData, userid }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCard, setSelectedCard] = useState(null);
 
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
   };
-
+  //
   const itemsPerPage = 9; // Number of items to display per page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -30,28 +30,28 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
     setSelectedCard(null);
   };
 
-  const handleFavouriteCard = useCallback(async () => {
-    // const newFavouriteCard = Array.isArray(favouriteCard)
-    //   ? favouriteCard
-    //       .filter((card) => card.images?.small) // Check if card.images?.small exists and is truthy
-    //       .map((card) => card.images.small)
-    //   : [];
+  const handleFavouriteCard = useCallback(
+    async (cardData) => {
+      const newFavouriteCard = cardData?.images?.small || null;
 
-    console.log("favouriteCard:", favouriteCard);
-    // console.log("filteredCards:", newFavouriteCard);
+      console.log("filteredCards:", newFavouriteCard);
 
-    try {
-      // UPSERT MATCHING ROWS
-      const { data, error } = await supabase
-        .from("user_faviourtes")
-        .upsert([{ faviourte_id: userid?.id, faviourte_cards: favouriteCard }])
-        .select();
+      try {
+        // UPSERT MATCHING ROWS
+        const { data, error } = await supabase
+          .from("user_favourites")
+          .upsert([
+            { favourite_id: userid?.id, favourite_cards: newFavouriteCard },
+          ])
+          .select();
 
-      console.log(data, error);
-    } catch (error) {
-      console.error("Error during upsert:", error);
-    }
-  }, [favouriteCard, userid?.id]);
+        console.log(data, error);
+      } catch (error) {
+        console.error("Error during upsert:", error);
+      }
+    },
+    [userid?.id]
+  );
 
   if (!pokeData) {
     return (
@@ -109,7 +109,10 @@ function PokeDisplay({ pokeData, favouriteCard, userid }) {
                   <span id="hp">Hp </span>
                   {poksData.hp}
                 </h3>
-                <Button onClick={handleFavouriteCard} variant="contained">
+                <Button
+                  onClick={() => handleFavouriteCard(poksData)}
+                  variant="contained"
+                >
                   Add to Favourites
                 </Button>
                 <h3>

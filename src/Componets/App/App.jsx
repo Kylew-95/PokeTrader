@@ -10,12 +10,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
   const [pokeData, setPokeData] = useState("");
   const [user, setUser] = useState(null);
-  const [favouriteCard, setFavouriteCard] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
+      // Check if pokeData and pokeData.id are defined
       const response = await fetch(
-        `https://api.pokemontcg.io/v2/cards?id=${pokeData}`,
+        `https://api.pokemontcg.io/v2/cards?id=${pokeData.id}`,
         {
           headers: {
             "X-Api-Key": process.env.REACT_APP_POKE_KEY,
@@ -23,10 +23,7 @@ function App() {
         }
       );
       const newPokeData = await response.json();
-      setPokeData(newPokeData.data); // Set the state to the new data
-      setFavouriteCard([newPokeData?.data.images.small || []]);
-      // console.log(newPokeData?.data[0]?.images.small);
-      // Do something with pokeData
+      setPokeData(newPokeData.data);
     }
 
     fetchData();
@@ -72,7 +69,7 @@ function App() {
           <Route path="Home" element={<PokeDisplay />} />
           <Route
             path="Profile"
-            element={<Profile user={user} favouriteCard={favouriteCard} />}
+            element={<Profile user={user} favouriteCard={pokeData} />}
           />
           <Route path="/Login" element={<SupabaseLogin />} />
           <Route
@@ -88,11 +85,7 @@ function App() {
                   <h2>Click on the cards to find out more below</h2>
                 </section>
                 <section className="mainContent">
-                  <PokeDisplay
-                    pokeData={pokeData}
-                    favouriteCard={favouriteCard}
-                    userid={user}
-                  />
+                  <PokeDisplay pokeData={pokeData} userid={user} />
                 </section>
               </>
             }
