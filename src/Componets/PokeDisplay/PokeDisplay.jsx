@@ -16,7 +16,7 @@ function PokeDisplay({ pokeData, userid }) {
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
   };
-
+  //
   const itemsPerPage = 9; // Number of items to display per page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
