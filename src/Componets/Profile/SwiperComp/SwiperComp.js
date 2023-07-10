@@ -99,8 +99,10 @@ export default function SwiperComp({ user }) {
                   (item) => item.id === photo.id
                 );
                 setSwiperData((prevData) => {
-                  const newData = [...prevData];
-                  newData.splice(index, 1);
+                  const newData = [
+                    ...prevData.slice(0, index),
+                    ...prevData.slice(index + 1),
+                  ];
                   return newData;
                 });
               }}
