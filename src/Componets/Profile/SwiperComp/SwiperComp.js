@@ -10,6 +10,7 @@ import "../SwiperComp/SwiperComp.css";
 
 // import required modules
 import { EffectCoverflow, Pagination } from "swiper/modules";
+import { Button } from "@mui/material";
 
 export default function SwiperComp({ user }) {
   const [swiperData, setSwiperData] = useState([]);
@@ -35,6 +36,26 @@ export default function SwiperComp({ user }) {
     fetchUserData();
   }, [user]);
 
+  async function handleDelete(favouriteId) {
+    try {
+      const { data, error } = await supabase
+        .from("user_favourites")
+        .delete()
+        .eq("id", favouriteId);
+
+      if (error) {
+        throw error;
+      }
+      if (data) {
+        window.location.reload();
+        console.log("Successfully deleted:", data);
+        // Perform any additional actions after successful deletion
+      }
+    } catch (error) {
+      console.error("Delete error:", error);
+    }
+  }
+
   return (
     <>
       <Swiper
@@ -57,8 +78,20 @@ export default function SwiperComp({ user }) {
         {swiperData.map((photo) => (
           <SwiperSlide className="swiper-slide" key={photo.id}>
             <div className="swiper-slide">
-              <img src={photo.favourite_cards} alt="" />
+              <img src={photo.favourite_cards} alt={photo.favourite_alt} />
             </div>
+            <Button
+              style={{
+                backgroundColor: "#ffcb05",
+                bottom: "4vh",
+                marginBottom: "0px",
+              }}
+              variant="contained"
+              on
+              onClick={() => handleDelete(photo.id)}
+            >
+              Remove
+            </Button>
           </SwiperSlide>
         ))}
       </Swiper>

@@ -33,6 +33,7 @@ function PokeDisplay({ pokeData, userid }) {
   const handleFavouriteCard = useCallback(
     async (cardData) => {
       const newFavouriteCard = cardData?.images?.small || null;
+      const flavourText = cardData?.flavorText || null;
 
       console.log("filteredCards:", newFavouriteCard);
 
@@ -41,7 +42,11 @@ function PokeDisplay({ pokeData, userid }) {
         const { data, error } = await supabase
           .from("user_favourites")
           .upsert([
-            { favourite_id: userid?.id, favourite_cards: newFavouriteCard },
+            {
+              favourite_id: userid?.id,
+              favourite_cards: newFavouriteCard,
+              favourite_alt: flavourText,
+            },
           ])
           .select();
 

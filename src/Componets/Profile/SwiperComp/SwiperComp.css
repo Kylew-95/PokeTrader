@@ -1,9 +1,17 @@
 .swiper {
   width: 43%;
+  bottom: 0;
+  margin-bottom: 0;
 }
 
 .swiper-slide {
   width: 32% !important;
+}
+.swiper-3d .swiper-slide-shadow-left {
+  background-image: none;
+}
+.swiper-3d .swiper-slide-shadow-right {
+  background-image: none;
 }
 
 /* .swiper-slide > img {
