@@ -47,9 +47,14 @@ export default function SwiperComp({ user }) {
         throw error;
       }
       if (data) {
-        window.location.reload();
+        function newSound() {
+          var audio = new Audio(
+            "https://freesound.org/data/previews/80/80921_1022651-lq.mp3"
+          );
+          audio.play();
+        }
+        newSound();
         console.log("Successfully deleted:", data);
-        // Perform any additional actions after successful deletion
       }
     } catch (error) {
       console.error("Delete error:", error);
@@ -75,7 +80,7 @@ export default function SwiperComp({ user }) {
         modules={[EffectCoverflow, Pagination]}
         className="swiper"
       >
-        {swiperData.map((photo) => (
+        {swiperData.map((photo, index) => (
           <SwiperSlide className="swiper-slide" key={photo.id}>
             <div className="swiper-slide">
               <img src={photo.favourite_cards} alt={photo.favourite_alt} />
@@ -88,7 +93,17 @@ export default function SwiperComp({ user }) {
               }}
               variant="contained"
               on
-              onClick={() => handleDelete(photo.id)}
+              onClick={() => {
+                handleDelete(photo.id);
+                const index = swiperData.findIndex(
+                  (item) => item.id === photo.id
+                );
+                setSwiperData((prevData) => {
+                  const newData = [...prevData];
+                  newData.splice(index, 1);
+                  return newData;
+                });
+              }}
             >
               Remove
             </Button>
