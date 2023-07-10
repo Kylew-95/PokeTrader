@@ -51,7 +51,13 @@ function Profile({ user, favouriteCard }) {
               <Avatar
                 className="ProfileAvatar"
                 autoCapitalize=""
-                sx={{ width: 170, height: 170, fontSize: "5rem" }}
+                sx={{
+                  width: 170,
+                  height: 170,
+                  fontSize: "5rem",
+                  backgroundImage:
+                    "url(../Loading/running-pikachu-transparent-snivee.gif)",
+                }}
               >
                 {user?.user_metadata.full_name[0]}
               </Avatar>
