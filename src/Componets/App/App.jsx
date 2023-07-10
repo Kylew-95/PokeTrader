@@ -14,14 +14,11 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       // Check if pokeData and pokeData.id are defined
-      const response = await fetch(
-        `https://api.pokemontcg.io/v2/cards?id=${pokeData.id}`,
-        {
-          headers: {
-            "X-Api-Key": process.env.REACT_APP_POKE_KEY,
-          },
-        }
-      );
+      const response = await fetch(`https://api.pokemontcg.io/v2/cards`, {
+        headers: {
+          "X-Api-Key": process.env.REACT_APP_POKE_KEY,
+        },
+      });
       const newPokeData = await response.json();
       setPokeData(newPokeData.data);
     }

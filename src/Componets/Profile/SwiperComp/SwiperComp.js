@@ -64,7 +64,7 @@ export default function SwiperComp({ user }) {
   return (
     <>
       <Swiper
-        initialSlide={4}
+        initialSlide={2}
         effect={"coverflow"}
         grabCursor={true}
         centeredSlides={true}
