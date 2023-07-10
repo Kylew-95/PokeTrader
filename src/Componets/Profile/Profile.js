@@ -68,9 +68,8 @@ function Profile({ user, favouriteCard }) {
                 >
                   Your Favourite Pokemon
                 </h3>
-                <Grid2 sx={{marginLeft: "2vw"}}>
-                  <SwiperComp user={user} favouriteCard={favouriteCard} />
-                </Grid2>
+
+                <SwiperComp user={user} favouriteCard={favouriteCard} />
               </div>
             </div>
           </Grid>
