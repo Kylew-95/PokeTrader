@@ -4,7 +4,6 @@ import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import { Avatar, Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SwiperComp from "./SwiperComp/SwiperComp";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 function Profile({ user, favouriteCard }) {
   const navigate = useNavigate();

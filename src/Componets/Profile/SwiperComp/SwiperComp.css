@@ -1,5 +1,5 @@
 .swiper {
-  width: 70%;
+  width: 75%;
   bottom: 0;
   margin-bottom: 20px;
 }
@@ -8,9 +8,9 @@
 .swiper-pagination-custom,
 .swiper-horizontal > .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal {
-  bottom: 5rem;
+  bottom: 3rem;
 }
-/*  */
+
 .swiper-slide {
   width: 32% !important;
 }

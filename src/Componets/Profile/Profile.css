@@ -9,6 +9,14 @@
   align-items: center;
   height: 60vh;
 }
+.ProfileContainer {
+  background-color: rgb(255, 255, 255);
+  /* border: solid 1px rgb(0, 0, 0); */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-left: 12px;
+  width: 60vw;
+  padding-left: 7rem;
+}
 
 .navExtender {
   display: flex;
