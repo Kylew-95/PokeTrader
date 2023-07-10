@@ -18,7 +18,7 @@
   align-items: center;
   height: 60vh;
 }
-.ProfileContainer {
+.SwiperboxContainer {
   background-color: rgb(255, 255, 255);
   /* border: solid 1px rgb(0, 0, 0); */
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -57,6 +57,8 @@
 .ProfileAvatar {
   position: absolute;
   bottom: 25vh;
+  padding: 1rem;
+  border: 6px solid #ffffff;
 }
 
 #ProfileName {
@@ -101,4 +103,12 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.bottomNav {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  bottom: 1vh;
 }

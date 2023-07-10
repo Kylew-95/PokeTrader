@@ -2,6 +2,7 @@ import React from "react";
 import "./Profile.css";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import { Avatar, Button, Grid } from "@mui/material";
+import BottomNav from "./BottomNav/BottomNav";
 import { useNavigate } from "react-router-dom";
 import SwiperComp from "./SwiperComp/SwiperComp";
 
@@ -55,7 +56,11 @@ function Profile({ user, favouriteCard }) {
                 {user?.user_metadata.full_name[0]}
               </Avatar>
               <h2 id="ProfileName">Hi {handleFirstName()}</h2>
+              <p>{user.email}</p>
               <p>{user.aud}</p>
+              <div className="bottomNav">
+                <BottomNav />
+              </div>
             </aside>
             <div className="signOutbtn">
               <Button variant="contained" onClick={handleLogout}>
@@ -64,7 +69,7 @@ function Profile({ user, favouriteCard }) {
             </div>
           </Grid>
           <Grid item xs={12} md={8}>
-            <div className="ProfileContainer">
+            <div className="SwiperboxContainer">
               <div className="ProfileContainerMain">
                 <div className="profileSwiperHeaders">
                   <h3 style={{ fontSize: "2rem", fontWeight: 600 }}>Stats</h3>
