@@ -12,7 +12,7 @@ import "../SwiperComp/SwiperComp.css";
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { Button } from "@mui/material";
 
-export default function SwiperComp({ user }) {
+export default function SwiperComp({ user, favouriteCard }) {
   const [swiperData, setSwiperData] = useState([]);
 
   console.log(swiperData);
@@ -29,6 +29,7 @@ export default function SwiperComp({ user }) {
       }
       if (data) {
         setSwiperData(data);
+
         console.log(data); // this is the data you want to map over
         // yes, you can map over data here
       }

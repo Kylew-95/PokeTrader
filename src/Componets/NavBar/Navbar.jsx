@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./NavBar.css";
 import pikaIcon from "../Images/pikachu icon.png";
 import AppBar from "@mui/material/AppBar";
@@ -21,6 +21,25 @@ const settings = ["Profile", "Settings"];
 function ResponsiveNavBar({ user }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [transparency, setTransparency] = useState("rgba(240, 248, 255, 0)");
+
+  const navRef = useRef();
+  navRef.current = transparency;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const show = window.scrollY > 300;
+      if (show) {
+        setTransparency("rgb(251, 202, 60)");
+      } else {
+        setTransparency("rgba(240, 248, 255, 0)");
+      }
+    };
+    document.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -44,10 +63,13 @@ function ResponsiveNavBar({ user }) {
 
   return (
     <AppBar
+      className={transparency}
       position="fixed"
       style={{
-        backgroundColor: "rgb(251, 202, 60)",
-        boxShadow: "none",}}
+        backgroundColor: transparency,
+        boxShadow: "none",
+        transition: "background-color 0.3s ease",
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
