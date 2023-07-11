@@ -113,6 +113,7 @@ export default function SwiperComp({ user, favouriteCard }) {
           </SwiperSlide>
         ))}
       </Swiper>
+      {/*  */}
     </>
   );
 }
