@@ -36,7 +36,7 @@ function PokeDisplay({ pokeData, userid }) {
       const flavourText = cardData?.flavorText || null;
 
       console.log("filteredCards:", newFavouriteCard);
-
+      //
       try {
         // UPSERT MATCHING ROWS
         const { data, error } = await supabase
