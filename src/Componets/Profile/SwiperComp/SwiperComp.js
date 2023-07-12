@@ -14,7 +14,6 @@ import { Button } from "@mui/material";
 
 export default function SwiperComp({ user, favouriteCard }) {
   const [swiperData, setSwiperData] = useState([]);
-  const [favouriteData, setFavouriteData] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   console.log(swiperData);
@@ -31,8 +30,7 @@ export default function SwiperComp({ user, favouriteCard }) {
       }
       if (data) {
         setSwiperData(data);
-        setFavouriteData(data);
-        console.log(favouriteData); // this is the data you want to map over
+        console.log(data); // this is the data you want to map over
         // yes, you can map over data here
       }
     }
@@ -56,14 +54,36 @@ export default function SwiperComp({ user, favouriteCard }) {
 
   return (
     <>
-      <div className="swiper-title">
-        {favouriteData.map((item, index) => (
-          <p
-            key={index}
+      {/* <div className="profileSwiperHeaders">
+        <h3
+          className="ProfileTitle"
+          style={{ fontSize: "2rem", fontWeight: 600 }}
+        >
+          Stats
+        </h3>
+        <h3
+          style={{
+            fontSize: "2rem",
+          }}
+          className="ProfileTitle"
+        >
+          Your Favourite Pokemon
+        </h3>
+      </div> */}
+      <div className="swiper-Stats">
+        {swiperData.map((item, index) => (
+          <div
+            key={index + 1}
             style={{ display: index === activeIndex ? "block" : "none" }}
           >
-            {item.favourite_name}
-          </p>
+            <p>{item.favourite_name}</p>
+            <p>
+              {item.favourite_attacks[0].name}
+              {item.favourite_attacks[0].damage}
+            </p>
+            <br></br>
+            <p style={{ width: "10vw" }}>{item.favourite_attacks[0].text}</p>
+          </div>
         ))}
       </div>
       <Swiper

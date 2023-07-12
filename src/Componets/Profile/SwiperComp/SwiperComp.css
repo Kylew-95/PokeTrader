@@ -27,3 +27,34 @@
   width: 10vw;
   /* height: 42vh;*/
 }
+
+/* Swiper stats */
+
+.swiper-Stats {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 7vh;
+  left: 8vw;
+}
+
+.profileSwiperHeaders {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  top: 2vh;
+  right: 4vw;
+}
+
+.ProfileTitle {
+  position: static;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  top: 2vh;
+  right: 4vw;
+  width: 34rem;
+}
