@@ -46,6 +46,8 @@ function PokeDisplay({ pokeData, userid }) {
               favourite_id: userid?.id,
               favourite_cards: newFavouriteCard,
               favourite_alt: flavourText,
+              favourite_name: cardData?.name,
+              favourite_attacks: cardData?.attacks,
             },
           ])
           .select();

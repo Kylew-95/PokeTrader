@@ -14,6 +14,7 @@ import { Button } from "@mui/material";
 
 export default function SwiperComp({ user, favouriteCard }) {
   const [swiperData, setSwiperData] = useState([]);
+  const [favouriteData, setFavouriteData] = useState([]);
 
   console.log(swiperData);
 
@@ -29,8 +30,8 @@ export default function SwiperComp({ user, favouriteCard }) {
       }
       if (data) {
         setSwiperData(data);
-
-        console.log(data); // this is the data you want to map over
+        setFavouriteData(data);
+        console.log(favouriteData); // this is the data you want to map over
         // yes, you can map over data here
       }
     }
@@ -43,22 +44,12 @@ export default function SwiperComp({ user, favouriteCard }) {
         .from("user_favourites")
         .delete()
         .eq("id", favouriteId);
-
       if (error) {
         throw error;
       }
-      if (data) {
-        function newSound() {
-          var audio = new Audio(
-            "https://freesound.org/data/previews/80/80921_1022651-lq.mp3"
-          );
-          audio.play();
-        }
-        newSound();
-        console.log("Successfully deleted:", data);
-      }
+      console.log("Successfully deleted:", data);
     } catch (error) {
-      console.error("Delete error:", error);
+      console.log("Successfully deleted:", error);
     }
   }
 

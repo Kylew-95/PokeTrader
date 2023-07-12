@@ -37,7 +37,6 @@ export default function Login() {
   return (
     <>
       <NavExtender />
-
       {!session ? (
         <div className="totalSignup">
           <div>
