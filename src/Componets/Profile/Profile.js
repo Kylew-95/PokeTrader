@@ -5,7 +5,6 @@ import { Avatar, Button, Grid } from "@mui/material";
 import BottomNav from "./BottomNav/BottomNav";
 import { useNavigate } from "react-router-dom";
 import SwiperComp from "./SwiperComp/SwiperComp";
-import NavExtender from "../NavExtender/NavExtender";
 
 function Profile({ user, favouriteCard }) {
   const navigate = useNavigate();
