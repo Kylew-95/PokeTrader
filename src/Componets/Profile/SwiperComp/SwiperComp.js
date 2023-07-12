@@ -15,6 +15,7 @@ import { Button } from "@mui/material";
 export default function SwiperComp({ user, favouriteCard }) {
   const [swiperData, setSwiperData] = useState([]);
   const [favouriteData, setFavouriteData] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   console.log(swiperData);
 
@@ -55,6 +56,16 @@ export default function SwiperComp({ user, favouriteCard }) {
 
   return (
     <>
+      <div className="swiper-title">
+        {favouriteData.map((item, index) => (
+          <p
+            key={index}
+            style={{ display: index === activeIndex ? "block" : "none" }}
+          >
+            {item.favourite_name}
+          </p>
+        ))}
+      </div>
       <Swiper
         initialSlide={2}
         effect={"coverflow"}
@@ -68,6 +79,7 @@ export default function SwiperComp({ user, favouriteCard }) {
           modifier: 1,
           slideShadows: true,
         }}
+        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         pagination={true}
         modules={[EffectCoverflow, Pagination]}
         className="swiper"
