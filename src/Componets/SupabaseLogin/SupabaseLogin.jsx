@@ -5,6 +5,7 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import battlegif from "../Images/pokemon-battle-pokemon.gif";
 import "./SupabaseLogin.css";
 import { useNavigate } from "react-router-dom";
+import NavExtender from "../Profile/NavExtender/NavExtender";
 
 export const supabase = createClient(
   process.env.REACT_APP_POKE_SB_URL,
@@ -35,6 +36,8 @@ export default function Login() {
 
   return (
     <>
+      <NavExtender />
+
       {!session ? (
         <div className="totalSignup">
           <div>

@@ -5,6 +5,7 @@ import { Avatar, Button, Grid } from "@mui/material";
 import BottomNav from "./BottomNav/BottomNav";
 import { useNavigate } from "react-router-dom";
 import SwiperComp from "./SwiperComp/SwiperComp";
+import NavExtender from "./NavExtender/NavExtender";
 
 function Profile({ user, favouriteCard }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function Profile({ user, favouriteCard }) {
     window.location.reload();
   };
 
-  const returnUser = () => {
+  const returnUserToLogin = () => {
     navigate("/Login");
     return null;
   };
@@ -27,25 +28,14 @@ function Profile({ user, favouriteCard }) {
     return firstName;
   }
 
-  function stats() {
-    return (
-      <>
-        <div className="statsContainer">
-          <p>{favouriteCard.name}</p>
-          <p>{favouriteCard?.supertype}</p>
-        </div>
-      </>
-    );
-  }
-
   if (!user) {
-    return returnUser();
+    return returnUserToLogin();
   } else {
     return (
       <>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <div className="navExtender"></div>
+            <NavExtender />
           </Grid>
           <Grid item xs={12} md={4}>
             <aside className="ProfileData">
@@ -89,7 +79,6 @@ function Profile({ user, favouriteCard }) {
                     Your Favourite Pokemon
                   </h3>
                 </div>
-                <div className="profileSwiperStats">{stats()}</div>
                 <SwiperComp user={user} favouriteCard={favouriteCard} />
               </div>
             </div>

@@ -23,6 +23,7 @@ html {
   padding: 0 5%;
   box-sizing: border-box;
   overflow: auto;
+  z-index: -10;
 }
 
 section.mainContent {
@@ -51,4 +52,9 @@ section.mainContent {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  z-index: 1;
+}
+
+#homepageTitleh2 {
+  z-index: 1;
 }

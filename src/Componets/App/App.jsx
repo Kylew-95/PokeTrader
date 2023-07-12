@@ -6,6 +6,7 @@ import { supabase } from "../SupabaseLogin/SupabaseLogin.jsx";
 import SupabaseLogin from "../SupabaseLogin/SupabaseLogin";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HomePageVerticalSwiper from "./HompageVerticalSwiper/HomePageVerticalSwiper";
 
 function App() {
   const [pokeData, setPokeData] = useState("");
@@ -79,8 +80,11 @@ function App() {
                     src="/Loading/pokemon title.png"
                     alt=""
                   />
-                  <h2>Click on the cards to find out more below</h2>
-                </section>
+                  <h2 id="homepageTitleh2">
+                    Click on the cards to find out more below
+                  </h2>{" "}
+                </section>{" "}
+                <HomePageVerticalSwiper />
                 <section className="mainContent">
                   <PokeDisplay pokeData={pokeData} userid={user} />
                 </section>

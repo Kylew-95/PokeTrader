@@ -1,0 +1,26 @@
+/* .homepageSwiperOv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 110vh;
+  width: 100%;
+}
+
+.swiperImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50vh; /* Adjust the height as needed */
+/* width: 100%;
+  object-fit: cover;
+  z-index: 1; */
+
+/* .homepageSwiper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 65vw;
+  z-index: 2;
+} */

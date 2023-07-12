@@ -2,15 +2,6 @@
   --main-yellow: rgb(251, 202, 60);
 }
 
-.navExtender {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 15rem;
-  width: 100%;
-  background-color: var(--main-yellow);
-}
 .ProfileContainerMain {
   display: flex;
   flex-direction: column;
