@@ -67,17 +67,6 @@ function Profile({ user, favouriteCard }) {
           <Grid item xs={12} md={8}>
             <div className="SwiperboxContainer">
               <div className="ProfileContainerMain">
-                <div className="profileSwiperHeaders">
-                  <h3 style={{ fontSize: "2rem", fontWeight: 600 }}>Stats</h3>
-                  <h3
-                    style={{
-                      fontSize: "2rem",
-                    }}
-                    className="ProfileTitle"
-                  >
-                    Your Favourite Pokemon
-                  </h3>
-                </div>
                 <SwiperComp user={user} favouriteCard={favouriteCard} />
               </div>
             </div>
