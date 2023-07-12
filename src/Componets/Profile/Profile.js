@@ -5,7 +5,7 @@ import { Avatar, Button, Grid } from "@mui/material";
 import BottomNav from "./BottomNav/BottomNav";
 import { useNavigate } from "react-router-dom";
 import SwiperComp from "./SwiperComp/SwiperComp";
-import NavExtender from "./NavExtender/NavExtender";
+import NavExtender from "../NavExtender/NavExtender";
 
 function Profile({ user, favouriteCard }) {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Profile({ user, favouriteCard }) {
       <>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <NavExtender />
+            <div className="navExtenderProfile"></div>
           </Grid>
           <Grid item xs={12} md={4}>
             <aside className="ProfileData">
