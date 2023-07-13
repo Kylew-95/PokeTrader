@@ -9,7 +9,7 @@ import damageIcon from "../../Images/icons/Damage sheild.png";
 import attackIcon from "../../Images/icons/explosion.png";
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { Button } from "@mui/material";
-import { Height } from "@mui/icons-material";
+
 //
 export default function SwiperComp({ user }) {
   const [swiperData, setSwiperData] = useState([]);
