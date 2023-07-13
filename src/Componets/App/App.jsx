@@ -28,6 +28,8 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // console.log(pokeData);
+
   useEffect(() => {
     async function fetchUserData() {
       const user = await supabase.auth.getUser();
