@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { supabase } from "../../SupabaseLogin/SupabaseLogin";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "../SwiperComp/SwiperComp.css";
+import damageIcon from "../../Images/icons/Damage sheild.png";
+import attackIcon from "../../Images/icons/explosion.png";
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { Button } from "@mui/material";
-
-export default function SwiperComp({ user, favouriteCard }) {
+import { Height } from "@mui/icons-material";
+//
+export default function SwiperComp({ user }) {
   const [swiperData, setSwiperData] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const textContainerRef = useRef(null);
 
   console.log(swiperData);
 
@@ -61,13 +65,19 @@ export default function SwiperComp({ user, favouriteCard }) {
                 key={index + 1}
                 style={{ display: index === activeIndex ? "block" : "none" }}
               >
-                <h2>{item.favourite_name}</h2>
-                <h3>
+                <div className="text-container" ref={textContainerRef}>
+                  <h2 id="swiperPokeName">{item.favourite_name}</h2>
+                </div>
+                <h3 className="swiperIconsandText">
+                  <img src={attackIcon} alt="noIMG" style={{ width: "30px" }} />
                   {item.favourite_attacks[0].name}
-                  {item.favourite_attacks[0].damage}
+                </h3>
+                <h3 className="swiperIconsandText">
+                  <img src={damageIcon} alt="noIMG" style={{ width: "30px" }} />
+                  {item.favourite_attacks[0].damage || "none"}
                 </h3>
                 <br />
-                <p style={{ width: "10vw" }}>
+                <p id="swiperAttacks" style={{ width: "10vw" }}>
                   {item.favourite_attacks[0].text}
                 </p>
               </div>
