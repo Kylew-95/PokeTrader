@@ -7,6 +7,8 @@ import SupabaseLogin from "../SupabaseLogin/SupabaseLogin";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePageVerticalSwiper from "./HompageVerticalSwiper/HomePageVerticalSwiper";
+import GymLeaders from "../GymLeaders/GymLeaders";
+import Forum from "../Forum/Forum";
 
 function App() {
   const [pokeData, setPokeData] = useState("");
@@ -66,6 +68,8 @@ function App() {
       <Router>
         <ResponsiveNavBar user={user} />
         <Routes>
+          <Route path="Forum" element={<Forum />} />
+          <Route path="GymLeaders" element={<GymLeaders />} />
           <Route path="Home" element={<PokeDisplay />} />
           <Route
             path="Profile"
