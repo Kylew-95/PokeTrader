@@ -66,7 +66,7 @@ function App() {
   return (
     <>
       <Router>
-        <ResponsiveNavBar user={user} />
+        <ResponsiveNavBar user={user} pokeData={pokeData} />
         <Routes>
           <Route path="Forum" element={<Forum />} />
           <Route path="GymLeaders" element={<GymLeaders />} />

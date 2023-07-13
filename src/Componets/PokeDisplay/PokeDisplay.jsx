@@ -8,6 +8,7 @@ import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import { rareColors, typeColors } from "./Types";
 import "./PokeDisplay.css";
 import { Button } from "@mui/material";
+import SearchBar from "../SearchBar/SearchBar";
 
 function PokeDisplay({ pokeData, userid }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,6 +78,7 @@ function PokeDisplay({ pokeData, userid }) {
           onChange={handlePageChange}
           color="primary"
         />
+        <SearchBar pokeData={pokeData} />
       </Stack>
       <CardPopup poksData={selectedCard} onClose={handleClosePopup} />
       {pokeData.length > 0 ? (

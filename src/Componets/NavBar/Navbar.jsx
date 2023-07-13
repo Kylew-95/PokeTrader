@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 const pages = ["Home", "GymLeaders", "Forum"];
 const settings = ["Profile", "Settings"];
 
-function ResponsiveNavBar({ user }) {
+function ResponsiveNavBar({ user, pokeData }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [transparency, setTransparency] = useState("rgba(240, 248, 255, 0)");
@@ -62,169 +62,171 @@ function ResponsiveNavBar({ user }) {
   };
 
   return (
-    <AppBar
-      className={transparency}
-      position="fixed"
-      style={{
-        backgroundColor: transparency,
-        boxShadow: "none",
-        transition: "background-color 0.3s ease",
-      }}
-    >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Link to={"/"}>
-            <img src={pikaIcon} alt="pikachu icon" className="pikaIcon" />
-          </Link>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            TraderRaider
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-NavBar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-NavBar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <>
+      <AppBar
+        className={transparency}
+        position="fixed"
+        style={{
+          backgroundColor: transparency,
+          boxShadow: "none",
+          transition: "background-color 0.3s ease",
+        }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Link to={"/"}>
+              <img src={pikaIcon} alt="pikachu icon" className="pikaIcon" />
+            </Link>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
               sx={{
-                display: { xs: "block", md: "none" },
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    {page === "Home" ? (
-                      <Link to={"/"}>{page}</Link>
-                    ) : (
-                      <Link to={`/${page}`}>{page}</Link>
-                    )}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              fontSize: "18px",
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            TraderRaider
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+              TraderRaider
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-NavBar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                <Link
-                  style={{ textDecoration: "none", color: "white" }}
-                  to={page === "Home" ? "/" : `/${page}`}
-                >
-                  {page}
-                </Link>
-              </Button>
-            ))}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  sx={{ width: 32, height: 32, bgcolor: "orange" }}
-                  alt={
-                    user ? handleUpperCase(user) : "User is not logged in yet"
-                  }
-                  src={"/static/images/avatar/1.jpg"}
-                />
+                <MenuIcon />
               </IconButton>
-            </Tooltip>
-            {user ? (
               <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
+                id="menu-NavBar"
+                anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                  color: "blue",
+                  vertical: "bottom",
+                  horizontal: "left",
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: "top",
-                  horizontal: "right",
+                  horizontal: "left",
                 }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                {pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
-                      <Link
-                        style={{ textDecoration: "none", color: "black" }}
-                        to={`${setting}`}
-                      >
-                        {setting}
-                      </Link>
+                      {page === "Home" ? (
+                        <Link to={"/"}>{page}</Link>
+                      ) : (
+                        <Link to={`/${page}`}>{page}</Link>
+                      )}
                     </Typography>
                   </MenuItem>
                 ))}
               </Menu>
-            ) : null}
-            {!user && (
-              <Link to={`/Login`}>
-                <Button sx={{ left: "1vw" }} variant="contained">
-                  Login
+            </Box>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                fontSize: "18px",
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              TraderRaider
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  <Link
+                    style={{ textDecoration: "none", color: "white" }}
+                    to={page === "Home" ? "/" : `/${page}`}
+                  >
+                    {page}
+                  </Link>
                 </Button>
-              </Link>
-            )}
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              ))}
+            </Box>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    sx={{ width: 32, height: 32, bgcolor: "orange" }}
+                    alt={
+                      user ? handleUpperCase(user) : "User is not logged in yet"
+                    }
+                    src={"/static/images/avatar/1.jpg"}
+                  />
+                </IconButton>
+              </Tooltip>
+              {user ? (
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                    color: "blue",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">
+                        <Link
+                          style={{ textDecoration: "none", color: "black" }}
+                          to={`${setting}`}
+                        >
+                          {setting}
+                        </Link>
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              ) : null}
+              {!user && (
+                <Link to={`/Login`}>
+                  <Button sx={{ left: "1vw" }} variant="contained">
+                    Login
+                  </Button>
+                </Link>
+              )}
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 }
 
