@@ -10,9 +10,23 @@ import "./PokeDisplay.css";
 import { Button } from "@mui/material";
 import SearchBar from "../SearchBar/SearchBar";
 
-function PokeDisplay({ pokeData, userid }) {
+function PokeDisplay({ pokeData, pokeData2, userid }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredData = Array.isArray(pokeData)
+    ? pokeData.filter((poke) => {
+        return poke.name?.toLowerCase().match(searchTerm.toLowerCase());
+      })
+    : [];
+
+  console.log("Filtered Data:", filteredData);
 
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
@@ -21,7 +35,11 @@ function PokeDisplay({ pokeData, userid }) {
   const itemsPerPage = 9; // Number of items to display per page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentPokeData = pokeData?.slice(startIndex, endIndex) || [];
+  const currentPokeData =
+    pokeData2 && Array.isArray(pokeData2)
+      ? pokeData2?.concat(pokeData?.slice(startIndex, endIndex))
+      : pokeData?.slice(startIndex, endIndex) || [];
+  console.log(pokeData2.imageUrl);
 
   const handleCardClick = (pokeData) => {
     setSelectedCard(pokeData);
@@ -30,6 +48,11 @@ function PokeDisplay({ pokeData, userid }) {
   const handleClosePopup = () => {
     setSelectedCard(null);
   };
+
+  // const handleSearch = (pokeData.name) => {
+  //   setSearchedCards(pokeData.name);
+  //   setCurrentPage(1);
+  // };
 
   const handleFavouriteCard = useCallback(
     async (cardData) => {
@@ -63,6 +86,10 @@ function PokeDisplay({ pokeData, userid }) {
     [userid?.id]
   );
 
+  const displayData = currentPage.length > 0 ? currentPage : currentPokeData;
+
+  console.log("displayData:", displayData);
+
   if (!pokeData) {
     return (
       <img src="./Loading/running-pikachu-transparent-snivee.gif" alt="" />
@@ -78,7 +105,11 @@ function PokeDisplay({ pokeData, userid }) {
           onChange={handlePageChange}
           color="primary"
         />
-        <SearchBar pokeData={pokeData} />
+        <SearchBar
+          pokeData={pokeData}
+          handleSearch={handleChange}
+          searchTerm={searchTerm}
+        />
       </Stack>
       <CardPopup poksData={selectedCard} onClose={handleClosePopup} />
       {pokeData.length > 0 ? (
@@ -98,7 +129,11 @@ function PokeDisplay({ pokeData, userid }) {
                   className="menu__container"
                   onClick={() => handleCardClick(poksData)}
                 >
-                  <img id="pokeImg" src={poksData.images.small} alt="" />
+                  <img
+                    id="pokeImg"
+                    src={poksData.images.small || pokeData2.imageUrl}
+                    alt=""
+                  />
                 </div>
               </div>
               <p id="Att">

@@ -1,18 +1,13 @@
 import { Container, InputAdornment, TextField } from "@mui/material";
-import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import "./SearchBar.css";
 
-export default function SearchBar({ pokeData }) {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleChange = (event) => {
-    setSearchTerm(pokeData?.name);
-  };
-
+export default function SearchBar({ handleSearch, searchTerm }) {
   return (
     <Container
       maxWidth="md"
       sx={{
+        display: "flex",
         mt: 20,
         position: "absolute",
         zIndex: "20",
@@ -20,6 +15,10 @@ export default function SearchBar({ pokeData }) {
         left: "0",
         height: "4dvh",
         color: "white",
+        width: 300,
+        // eslint-disable-next-line no-dupe-keys
+        height: 50,
+        // borderRadius: 10,
       }}
     >
       <TextField
@@ -28,10 +27,13 @@ export default function SearchBar({ pokeData }) {
         label="Search"
         variant="filled"
         value={searchTerm}
-        onChange={handleChange}
+        onChange={handleSearch}
         sx={{
-          width: 600,
+          display: "flex",
+          justifyContent: "center",
+          width: 300,
           backgroundColor: "white",
+          // borderRadius: 10,
         }}
         InputProps={{
           endAdornment: (

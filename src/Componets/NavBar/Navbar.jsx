@@ -30,7 +30,7 @@ function ResponsiveNavBar({ user, pokeData }) {
     const handleScroll = () => {
       const show = window.scrollY > 300;
       if (show) {
-        setTransparency("rgb(251, 202, 60)");
+        setTransparency("rgb(253,208,0)");
       } else {
         setTransparency("rgba(240, 248, 255, 0)");
       }

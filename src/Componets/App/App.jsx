@@ -12,6 +12,7 @@ import Forum from "../Forum/Forum";
 
 function App() {
   const [pokeData, setPokeData] = useState("");
+  const [pokeData2, setPokeData2] = useState("");
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -30,7 +31,19 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // console.log(pokeData);
+  useEffect(() => {
+    async function fetchData2() {
+      // Check if pokeData and pokeData.id are defined
+      const response = await fetch(`https://api.pokemontcg.io/v1/cards`);
+      const newPokeData = await response.json();
+      setPokeData2(newPokeData["cards"][0]);
+    }
+
+    fetchData2();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log(pokeData2);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -83,7 +96,7 @@ function App() {
                 <section className="homepage">
                   <img
                     id="pokemonTitle"
-                    src="/Loading/pokemon title.png"
+                    src="/Loading/Trader Raider title.png"
                     alt=""
                   />
                   <h2 id="homepageTitleh2">
@@ -92,7 +105,11 @@ function App() {
                 </section>{" "}
                 <HomePageVerticalSwiper />
                 <section className="mainContent">
-                  <PokeDisplay pokeData={pokeData} userid={user} />
+                  <PokeDisplay
+                    pokeData={pokeData}
+                    pokeData2={pokeData2}
+                    userid={user}
+                  />
                 </section>
               </>
             }
