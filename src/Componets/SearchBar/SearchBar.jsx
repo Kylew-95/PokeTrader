@@ -18,7 +18,6 @@ export default function SearchBar({ handleSearch, searchTerm }) {
         width: 300,
         // eslint-disable-next-line no-dupe-keys
         height: 50,
-        // borderRadius: 10,
       }}
     >
       <TextField
@@ -33,7 +32,7 @@ export default function SearchBar({ handleSearch, searchTerm }) {
           justifyContent: "center",
           width: 300,
           backgroundColor: "white",
-          // borderRadius: 10,
+          borderRadius: 10,
         }}
         InputProps={{
           endAdornment: (
