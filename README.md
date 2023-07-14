@@ -1,3 +1,3 @@
 # PokeTrader
 
-https://main--trader-raider.netlify.app/
+https://trader-raider.netlify.app/
