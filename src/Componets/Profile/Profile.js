@@ -9,6 +9,8 @@ import SwiperComp from "./SwiperComp/SwiperComp";
 function Profile({ user, favouriteCard }) {
   const navigate = useNavigate();
 
+  // console.log("user:", user);
+
   console.log("favouriteCard:", favouriteCard[0]?.name);
 
   const handleLogout = async () => {

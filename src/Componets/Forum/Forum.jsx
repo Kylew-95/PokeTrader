@@ -5,6 +5,7 @@ function Forum() {
   return (
     <>
       <NavExtender />
+      <div className="Forum"></div>
     </>
   );
 }

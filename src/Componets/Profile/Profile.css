@@ -1,6 +1,5 @@
-* {
-  --main-yellow: rgb(251, 202, 60);
-}
+
+
 
 .ProfileContainerMain {
   display: flex;
@@ -51,7 +50,7 @@
   border-radius: 10px;
   /* margin-left: auto;  Center the container horizontally 
   margin-right: auto;  Center the container horizontally  */
-  left: 50px;
+  left: 10vw;
   right: 0;
   top: 21vh;
 }
@@ -117,4 +116,16 @@
   height: 15rem;
   width: 100%;
   background-color: var(--main-yellow);
+}
+
+@media screen and (max-width: 1301px) {
+  .SwiperboxContainer {
+    width: 20rem;
+    height: 30rem;
+    border-radius: 10px;
+    margin-left: 5vw;
+    left: 1.3rem; /* Adjust the left positioning */
+    right: 0;
+    top: 80vh;
+  }
 }
