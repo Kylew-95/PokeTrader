@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./NavBar.css";
-import pikaIcon from "../Images/pikachu icon.png";
+// import pikaIcon from "../Images/pikachu icon.png";
+import TraderRaidericon from "../Images/TraderRaider2 icon.png";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -75,7 +76,11 @@ function ResponsiveNavBar({ user, pokeData }) {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Link to={"/"}>
-              <img src={pikaIcon} alt="pikachu icon" className="pikaIcon" />
+              <img
+                src={TraderRaidericon}
+                alt="TraderRaidericon"
+                className="pikaIcon"
+              />
             </Link>
             <Typography
               variant="h6"
