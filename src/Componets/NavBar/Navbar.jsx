@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 const pages = ["Home", "GymLeaders", "Forum"];
 const settings = ["Profile", "Settings"];
-
+//
 function ResponsiveNavBar({ user, pokeData }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
