@@ -23,7 +23,7 @@ function ResponsiveNavBar({ user, pokeData }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [transparency, setTransparency] = useState("rgba(240, 248, 255, 0)");
-
+  //
   const navRef = useRef();
   navRef.current = transparency;
 
