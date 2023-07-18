@@ -15,10 +15,10 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
   const [selectedCard, setSelectedCard] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setSearchTerm(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   e.preventDefault();
+  //   setSearchTerm(e.target.value);
+  // };
 
   const filteredData = Array.isArray(pokeData)
     ? pokeData.filter((poke) => {
@@ -28,17 +28,16 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
 
   console.log("Filtered Data:", filteredData);
 
-  const handlePageChange = (event, page) => {
+  const handlePageChange = (e, page) => {
     setCurrentPage(page);
+    e.preventDefault();
+    setSearchTerm(e.target.value);
   };
   //
   const itemsPerPage = 9; // Number of items to display per page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentPokeData =
-    pokeData2 && Array.isArray(pokeData2)
-      ? pokeData2?.concat(pokeData?.slice(startIndex, endIndex))
-      : pokeData?.slice(startIndex, endIndex) || [];
+  const currentPokeData = pokeData?.slice(startIndex, endIndex) || [];
   console.log(pokeData2.imageUrl);
 
   const handleCardClick = (pokeData) => {
@@ -86,13 +85,17 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
     [userid?.id]
   );
 
-  const displayData = currentPage.length > 0 ? currentPage : currentPokeData;
+  const displayData = currentPage > 0 ? currentPokeData : currentPage;
 
   console.log("displayData:", displayData);
 
   if (!pokeData) {
     return (
-      <img src="./Loading/running-pikachu-transparent-snivee.gif" alt="" />
+      <img
+        style={{ width: "50vw", flexShrink: "0" }}
+        src="./Loading/running-pikachu-transparent-snivee.gif"
+        alt=""
+      />
     );
   }
 
@@ -107,7 +110,7 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
         />
         <SearchBar
           pokeData={pokeData}
-          handleSearch={handleChange}
+          handleSearch={handlePageChange}
           searchTerm={searchTerm}
         />
       </Stack>

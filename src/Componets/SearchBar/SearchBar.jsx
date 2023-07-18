@@ -15,7 +15,7 @@ export default function SearchBar({ handleSearch, searchTerm }) {
         left: "0",
         height: "4dvh",
         color: "white",
-        width: 300,
+        width: 200,
         // eslint-disable-next-line no-dupe-keys
         height: 50,
       }}
@@ -30,7 +30,7 @@ export default function SearchBar({ handleSearch, searchTerm }) {
         sx={{
           display: "flex",
           justifyContent: "center",
-          width: 300,
+          width: 200,
           backgroundColor: "white",
           borderRadius: 10,
         }}
