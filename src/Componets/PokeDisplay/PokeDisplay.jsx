@@ -20,13 +20,13 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
   //   setSearchTerm(e.target.value);
   // };
 
-  const filteredData = Array.isArray(pokeData)
-    ? pokeData.filter((poke) => {
-        return poke.name?.toLowerCase().match(searchTerm.toLowerCase());
-      })
-    : [];
+  // const filteredData = Array.isArray(pokeData)
+  //   ? pokeData.filter((poke) => {
+  //       return poke.name?.toLowerCase().match(searchTerm.toLowerCase());
+  //     })
+  //   : [];
 
-  console.log("Filtered Data:", filteredData);
+  // console.log("Filtered Data:", filteredData);
 
   const handlePageChange = (e, page) => {
     setCurrentPage(page);
@@ -58,7 +58,7 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
       const newFavouriteCard = cardData?.images?.small || null;
       const flavourText = cardData?.flavorText || null;
 
-      console.log("filteredCards:", newFavouriteCard);
+      // console.log("filteredCards:", newFavouriteCard);
 
       try {
         // UPSERT MATCHING ROWS
@@ -85,9 +85,9 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
     [userid?.id]
   );
 
-  const displayData = currentPage > 0 ? currentPokeData : currentPage;
+  // const displayData = currentPage > 0 ? currentPokeData : currentPage;
 
-  console.log("displayData:", displayData);
+  // console.log("displayData:", displayData);
 
   if (!pokeData) {
     return (

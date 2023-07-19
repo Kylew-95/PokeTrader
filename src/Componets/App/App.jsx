@@ -43,7 +43,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(pokeData2);
+  // console.log(pokeData2);
 
   useEffect(() => {
     async function fetchUserData() {

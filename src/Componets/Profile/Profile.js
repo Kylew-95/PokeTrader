@@ -11,7 +11,7 @@ function Profile({ user, favouriteCard }) {
 
   // console.log("user:", user);
 
-  console.log("favouriteCard:", favouriteCard[0]?.name);
+  // console.log("favouriteCard:", favouriteCard[0]?.name);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
