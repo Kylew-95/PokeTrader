@@ -13,7 +13,7 @@ import SearchBar from "../SearchBar/SearchBar";
 function PokeDisplay({ pokeData, pokeData2, userid }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
 
   // const handleChange = (e) => {
   //   e.preventDefault();
@@ -31,14 +31,13 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
   const handlePageChange = (e, page) => {
     setCurrentPage(page);
     e.preventDefault();
-    setSearchTerm(e.target.value);
+    // setSearchTerm(e.target.value);
   };
   //
   const itemsPerPage = 9; // Number of items to display per page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentPokeData = pokeData?.slice(startIndex, endIndex) || [];
-  console.log(pokeData2.imageUrl);
 
   const handleCardClick = (pokeData) => {
     setSelectedCard(pokeData);
@@ -111,7 +110,7 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
         <SearchBar
           pokeData={pokeData}
           handleSearch={handlePageChange}
-          searchTerm={searchTerm}
+          // searchTerm={searchTerm}
         />
       </Stack>
       <CardPopup poksData={selectedCard} onClose={handleClosePopup} />
