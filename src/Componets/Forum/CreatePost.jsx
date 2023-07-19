@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 const initialState = { title: "", content: "" };
 
@@ -11,38 +11,48 @@ function CreatePost() {
   const [getUser, setGetUser] = useState(null);
   const { title, content } = post;
 
+  // Effect hook to fetch user data when the component mounts
+  useEffect(() => {
+    async function fetchUserData() {
+      try {
+        const user = await supabase.auth.getUser();
+        setGetUser(user.data.user);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+
+    fetchUserData();
+  }, []);
+
   function onChange(e) {
     setPost((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+  }
+
+  // This function is to handle the SimpleMDE content change
+  function onContentChange(value) {
+    setPost((prevState) => ({ ...prevState, content: value }));
   }
 
   async function createNewPost() {
     if (!title || !content) return;
 
-    const user = await supabase.auth.getUser();
-    setGetUser(user.data.user);
-    console.log("getUser:", getUser.id);
     try {
+      // eslint-disable-next-line no-unused-vars
       const { data } = await supabase
         .from("forum")
-        .upsert([
+        .insert([
           {
-            forums_email: title,
+            forums_title: title,
             forums_comments: content,
             forums_id: getUser.id,
-
-            user_email: getUser.email,
+            forums_email: getUser.email,
           },
         ])
         .single();
 
-      if (!data) {
-        console.error("Insert operation didn't return any data.");
-        return;
-      }
-
-      //   console.log("Inserted data:", data);
-
-      await supabase.from(`Forum/posts/${data.title}`).push(data);
+      // console.log("Data to be inserted:", data);
+      setPost(initialState);
     } catch (error) {
       console.error("Error creating post:", error);
     }
@@ -51,16 +61,17 @@ function CreatePost() {
   return (
     <div>
       <h1 className="createPost">Create new post</h1>
-      <input
+      <TextField
         onChange={onChange}
         name="title"
         placeholder="Title"
-        value={post.title}
+        value={title}
         className="commentInput"
       />
       <SimpleMDE
-        value={post.content}
-        onChange={(value) => setPost({ ...post, content: value })}
+        className="simpleMDE"
+        value={content}
+        onChange={onContentChange}
       />
       <Button variant="contained" onClick={createNewPost}>
         Create Post
