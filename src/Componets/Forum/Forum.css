@@ -1,4 +1,23 @@
+.Forum {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  top: 12vh;
+  width: 50%;
+  height: 100%;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 20px;
+
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  z-index: -20;
+}
+
 .createPost {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,6 +28,6 @@
   background-color: #f2f2f2;
   border-radius: 10px;
   padding: 20px;
-  column-gap: 2vh;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 40vh;
 }

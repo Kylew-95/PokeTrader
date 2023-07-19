@@ -38,7 +38,6 @@ function CreatePost() {
     if (!title || !content) return;
 
     try {
-      // eslint-disable-next-line no-unused-vars
       const { data } = await supabase
         .from("forum")
         .insert([
@@ -50,9 +49,15 @@ function CreatePost() {
           },
         ])
         .single();
-
-      // console.log("Data to be inserted:", data);
-      setPost(initialState);
+      if (!data) {
+        // console.log("No data to insert");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        // console.log("Data to be inserted:", data);
+        setPost(initialState);
+      }
     } catch (error) {
       console.error("Error creating post:", error);
     }
@@ -60,7 +65,7 @@ function CreatePost() {
 
   return (
     <div>
-      <h1 className="createPost">Create new post</h1>
+      <h1 className="createPosth1">Create new post</h1>
       <TextField
         onChange={onChange}
         name="title"
