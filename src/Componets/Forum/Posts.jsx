@@ -27,7 +27,7 @@ function Posts({ user, profileData }) {
         Loading...
       </div>
     );
-  } else if (showPosts.length === 0) {
+  } else if (showPosts.length === null) {
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
         No posts available here
@@ -57,15 +57,14 @@ function Posts({ user, profileData }) {
                 <p>{post.forums_comments}</p>
                 <h4>Replies</h4>
                 {post.forums_replies !== null &&
-                post.forums_replies.length > 0 ? (
-                  <>
-                    <p>{post.forums_replies[0]?.content}</p>
-                    <Replies user={user} />
-                  </>
-                ) : (
-                  <p>No replies yet</p>
-                )}
+                  post.forums_replies.length >
+                  (
+                    <>
+                      <p>{post.forums_replies[0]?.content}</p>
+                    </>
+                  )}
               </div>
+              <Replies user={user} profileData={profileData} />
             </div>
           );
         })}
