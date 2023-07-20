@@ -12,14 +12,15 @@ function Replies({ user }) {
     // Fetch the current forum data
     const { data: forumData, error } = await supabase
       .from("forum")
-      .select("forums_replies")
-      .eq("forums_username", user?.id);
+      .select("id", "forums_replies")
+      .eq("forums_id", user?.id);
 
     if (error) {
       console.error("Error fetching forum data:", error.message);
       return;
     }
 
+    const forumIdToUpdate = forumData[0]?.id;
     const currentReplies = forumData[0]?.forums_replies || [];
 
     // Append the new reply to the existing replies
@@ -28,8 +29,8 @@ function Replies({ user }) {
     // Update the database with the new replies
     const { data: updatedData, updateError } = await supabase
       .from("forum")
-      .insert([{ forums_replies: updatedReplies }])
-      .eq("forums_username", user?.id)
+      .update({ forums_replies: updatedReplies })
+      .eq("id", forumIdToUpdate)
       .select();
 
     if (updateError) {
@@ -49,6 +50,7 @@ function Replies({ user }) {
             name="reply"
             placeholder="Reply to this post"
             value={replyText}
+            required={true}
             className="commentInput"
           />
           <Button type="submit" variant="text">

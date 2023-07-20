@@ -56,6 +56,7 @@ function Posts({ user }) {
                 <h3>Comment</h3>
                 <p>{post.forums_comments}</p>
                 <h4>Replies</h4>
+                <p>{post.forums_replies}</p>
                 <Replies user={user} />
               </div>
             </div>
