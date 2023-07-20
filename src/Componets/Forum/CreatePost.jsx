@@ -6,7 +6,7 @@ import { Button, TextField } from "@mui/material";
 
 const initialState = { title: "", content: "" };
 
-function CreatePost() {
+function CreatePost({ profileData }) {
   const [post, setPost] = useState(initialState);
   const [getUser, setGetUser] = useState(null);
   const { title, content } = post;
@@ -42,6 +42,7 @@ function CreatePost() {
         .from("forum")
         .insert([
           {
+            forums_username: profileData.settings_username,
             forums_title: title,
             forums_comments: content,
             forums_id: getUser.id,

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { supabase } from "../../SupabaseLogin/SupabaseLogin";
@@ -16,7 +17,7 @@ export default function SwiperComp({ user }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const textContainerRef = useRef(null);
 
-  console.log(swiperData);
+  // console.log(swiperData);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -30,7 +31,7 @@ export default function SwiperComp({ user }) {
       }
       if (data) {
         setSwiperData(data);
-        console.log(data); // this is the data you want to map over
+        // console.log(data); // this is the data you want to map over
       }
     }
     fetchUserData();
@@ -45,7 +46,7 @@ export default function SwiperComp({ user }) {
       if (error) {
         throw error;
       }
-      console.log("Successfully deleted:", data);
+      // console.log("Successfully deleted:", data);
     } catch (error) {
       console.log("Error deleting:", error);
     }

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-
+import { Avatar } from "@mui/material";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import "./Posts.css"; // Import the CSS file for styling
+import Replies from "./Replies";
 
-function Posts() {
+function Posts({ user }) {
   const [showPosts, setShowPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
   async function getPosts() {
     const { data } = await supabase
@@ -12,28 +14,56 @@ function Posts() {
       .select("*")
       .order("created_time", { ascending: true });
     setShowPosts(data);
+    setIsLoading(false);
   }
 
   useEffect(() => {
     getPosts();
   }, []);
 
-  return (
-    <div className="post-container">
-      {" "}
-      {/* Wrap all posts in a container div */}
-      {showPosts.map((post) => (
-        <div key={post.id} className="post-box">
-          {" "}
-          {/* Apply a class for styling */}
-          <h1>{post.forums_title}:</h1>
-          <h2>username: {post.forums_email}</h2>
-          <h3>Comment</h3>
-          <p>{post.forums_comments}</p>
-        </div>
-      ))}
-    </div>
-  );
+  if (isLoading) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        Loading...
+      </div>
+    );
+  } else if (showPosts.length === 0) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        No posts available here
+      </div>
+    );
+  } else {
+    return (
+      <div className="post-container">
+        {showPosts.map((post) => {
+          return (
+            <div key={post.id} className="post-box">
+              <h1>{post.forums_title}:</h1>
+              <div className="forum-user">
+                <h2 className="forum-user">
+                  <>
+                    <Avatar
+                      sx={{ width: 32, height: 32, bgcolor: "orange" }}
+                      alt={post.forums_username}
+                      src={"/static/images/avatar/1.jpg"}
+                    />
+                    {post.forums_username}
+                  </>
+                </h2>
+              </div>
+              <div className="forum-comment-box">
+                <h3>Comment</h3>
+                <p>{post.forums_comments}</p>
+                <h4>Replies</h4>
+                <Replies user={user} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 }
 
 export default Posts;
