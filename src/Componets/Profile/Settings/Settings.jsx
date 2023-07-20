@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import NavExtender from "../../NavExtender/NavExtender";
 import { Button, Grid, TextField } from "@mui/material";
 import { supabase } from "../../SupabaseLogin/SupabaseLogin";
@@ -33,12 +33,12 @@ function Settings({ user }) {
         }
       } else {
         // If settings_id exists, check if a record with that ID exists in the table
-        const { data: existingData, error: existingError } = await supabase
+        const { data, error } = await supabase
           .from("settings")
           .select("*")
           .eq("settings_id", settings_id)
           .single();
-        if (!existingError && existingData) {
+        if (!error && data) {
           // Update the existing record
           const { error } = await supabase
             .from("settings")

@@ -3,7 +3,7 @@ import { Avatar } from "@mui/material";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import "./Posts.css"; // Import the CSS file for styling
 
-function Posts({ profileData, user }) {
+function Posts() {
   const [showPosts, setShowPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
@@ -41,16 +41,14 @@ function Posts({ profileData, user }) {
               <h1>{post.forums_title}:</h1>
               <div className="forum-user">
                 <h2 className="forum-user">
-                  {profileData && ( // Check if profile exists before accessing its data
-                    <>
-                      <Avatar
-                        sx={{ width: 32, height: 32, bgcolor: "orange" }}
-                        alt={profileData.settings_username.charAt(0)}
-                        src={"/static/images/avatar/1.jpg"}
-                      />
-                      {profileData.settings_username}
-                    </>
-                  )}
+                  <>
+                    <Avatar
+                      sx={{ width: 32, height: 32, bgcolor: "orange" }}
+                      alt={post.forums_username}
+                      src={"/static/images/avatar/1.jpg"}
+                    />
+                    {post.forums_username}
+                  </>
                 </h2>
               </div>
               <div className="forum-comment-box">

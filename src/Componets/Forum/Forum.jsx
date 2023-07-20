@@ -13,7 +13,7 @@ function Forum({ profileData, user }) {
         <Posts profileData={profileData} user={user} />
       </div>
       <div className="createPost">
-        <CreatePost />
+        <CreatePost profileData={profileData} />
       </div>
     </>
   );
