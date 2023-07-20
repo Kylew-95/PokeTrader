@@ -6,7 +6,7 @@ import BottomNav from "./BottomNav/BottomNav";
 import { useNavigate } from "react-router-dom";
 import SwiperComp from "./SwiperComp/SwiperComp";
 
-function Profile({ user, favouriteCard }) {
+function Profile({ user, favouriteCard, profileData }) {
   const navigate = useNavigate();
 
   // console.log("user:", user);
@@ -25,9 +25,10 @@ function Profile({ user, favouriteCard }) {
   };
 
   function handleFirstName() {
-    const firstName = user?.user_metadata.full_name.split(" ")[0];
+    const firstName = profileData?.settings_username.split(" ")[0];
     return firstName;
   }
+  console.log("profileData:", profileData);
 
   if (!user) {
     return returnUserToLogin();
@@ -51,7 +52,7 @@ function Profile({ user, favouriteCard }) {
                     "url(../Loading/running-pikachu-transparent-snivee.gif)",
                 }}
               >
-                {user?.user_metadata.full_name[0]}
+                {profileData?.settings_username[0]}
               </Avatar>
               <h2 id="ProfileName">Hi {handleFirstName()}</h2>
               <p>{user.email}</p>

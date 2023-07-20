@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./App.css";
 import Profile from "../Profile/Profile";
 import ResponsiveNavBar from "../NavBar/Navbar";
@@ -7,14 +8,15 @@ import SupabaseLogin from "../SupabaseLogin/SupabaseLogin";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePageVerticalSwiper from "./HompageVerticalSwiper/HomePageVerticalSwiper";
+import Settings from "../Profile/Settings/Settings";
 import GymLeaders from "../GymLeaders/GymLeaders";
 import Forum from "../Forum/Forum";
 
 function App() {
   const [pokeData, setPokeData] = useState("");
-  const [pokeData2, setPokeData2] = useState("");
+  // const [pokeData2, setPokeData2] = useState("");
   const [user, setUser] = useState(null);
-
+  const [profileData, setProfileData] = useState(null);
   useEffect(() => {
     async function fetchData() {
       // Check if pokeData and pokeData.id are defined
@@ -31,19 +33,29 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // useEffect(() => {
+  //   async function fetchData2() {
+  //     // Check if pokeData and pokeData.id are defined
+  //     const response = await fetch(`https://api.pokemontcg.io/v1/cards`);
+  //     const newPokeData = await response.json();
+  //     setPokeData2(newPokeData["cards"][0]);
+  //   }
+
+  //   fetchData2();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   useEffect(() => {
-    async function fetchData2() {
-      // Check if pokeData and pokeData.id are defined
-      const response = await fetch(`https://api.pokemontcg.io/v1/cards`);
-      const newPokeData = await response.json();
-      setPokeData2(newPokeData["cards"][0]);
+    async function fetchProfileData() {
+      let { data, error } = await supabase
+        .from("settings")
+        .select("*")
+        .eq("settings_id", user?.id)
+        .single();
+      setProfileData(data);
     }
-
-    fetchData2();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // console.log(pokeData2);
+    fetchProfileData();
+  }, [setProfileData, user?.id]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -54,39 +66,31 @@ function App() {
     fetchUserData();
   }, []);
 
-  // useEffect(() => {
-  //   async function fetchUserData() {
-  //     const user = await supabase.auth.getUser();
-  //     console.log(user);
-  //     const { data, error } = await supabase
-  //       .from("new_users")
-  //       .select("*")
-  //       // .eq("new_user_id", user.id)
-  //       .ilike("first_name", user?.first_name);
-  //       console.log(data)
-  //     if (error) {
-  //       throw error;
-  //     }
-  //     if (data) {
-  //       setUser(data);
-  //       console.log(data);
-  //     }
-  //   }
-
-  //   fetchUserData();
-  // }, []);
-
   return (
     <>
       <Router>
-        <ResponsiveNavBar user={user} pokeData={pokeData} />
+        <ResponsiveNavBar
+          user={user}
+          pokeData={pokeData}
+          profileData={profileData}
+        />
         <Routes>
-          <Route path="Forum" element={<Forum />} />
+          <Route path="Settings" element={<Settings user={user} />} />
+          <Route
+            path="Forum"
+            element={<Forum user={user} profileData={profileData} />}
+          />
           <Route path="GymLeaders" element={<GymLeaders />} />
           <Route path="Home" element={<PokeDisplay />} />
           <Route
             path="Profile"
-            element={<Profile user={user} favouriteCard={pokeData} />}
+            element={
+              <Profile
+                user={user}
+                favouriteCard={pokeData}
+                profileData={profileData}
+              />
+            }
           />
           <Route path="/Login" element={<SupabaseLogin />} />
           <Route
@@ -107,7 +111,7 @@ function App() {
                 <section className="mainContent">
                   <PokeDisplay
                     pokeData={pokeData}
-                    pokeData2={pokeData2}
+                    // pokeData2={pokeData2}
                     userid={user}
                   />
                 </section>

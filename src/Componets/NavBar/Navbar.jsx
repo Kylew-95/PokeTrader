@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 const pages = ["Home", "GymLeaders", "Forum"];
 const settings = ["Profile", "Settings"];
 //
-function ResponsiveNavBar({ user, pokeData }) {
+function ResponsiveNavBar({ user, pokeData, profileData }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [transparency, setTransparency] = useState("rgba(240, 248, 255, 0)");
@@ -57,9 +57,9 @@ function ResponsiveNavBar({ user, pokeData }) {
     setAnchorElUser(null);
   };
   //
-  const handleUpperCase = (user) => {
-    const userAvatar = user.user_metadata.full_name;
-    return userAvatar.toUpperCase();
+  const handleUpperCase = () => {
+    const userAvatar = profileData?.settings_username;
+    return userAvatar;
   };
 
   return (
