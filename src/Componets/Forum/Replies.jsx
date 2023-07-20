@@ -49,7 +49,7 @@ function Replies({ user, profileData }) {
     const updatedReplies = [...currentReplies, newReply];
 
     // Update the database with the new replies (array of objects)
-    const { data: updatedData, updateError } = await supabase
+    const { updateError } = await supabase
       .from("forum")
       .update({
         forums_replies: updatedReplies, // No need to JSON.stringify here
