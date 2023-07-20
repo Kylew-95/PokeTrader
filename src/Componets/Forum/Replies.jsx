@@ -52,7 +52,7 @@ function Replies({ user, profileData }) {
     const { updateError } = await supabase
       .from("forum")
       .update({
-        forums_replies: updatedReplies, // No need to JSON.stringify here
+        forums_replies: updatedReplies,
       })
       .eq("id", forumIdToUpdate)
       .select();
