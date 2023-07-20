@@ -1,7 +1,6 @@
 import React from "react";
 import "./Profile.css";
-import { supabase } from "../SupabaseLogin/SupabaseLogin";
-import { Avatar, Button, Grid } from "@mui/material";
+import { Avatar, Grid } from "@mui/material";
 import BottomNav from "./BottomNav/BottomNav";
 import { useNavigate } from "react-router-dom";
 import SwiperComp from "./SwiperComp/SwiperComp";
@@ -13,12 +12,6 @@ function Profile({ user, favouriteCard, profileData }) {
 
   // console.log("favouriteCard:", favouriteCard[0]?.name);
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate("/Login");
-    window.location.reload();
-  };
-
   const returnUserToLogin = () => {
     navigate("/Login");
     return null;
@@ -28,7 +21,6 @@ function Profile({ user, favouriteCard, profileData }) {
     const firstName = profileData?.settings_username.split(" ")[0];
     return firstName;
   }
-  console.log("profileData:", profileData);
 
   if (!user) {
     return returnUserToLogin();
@@ -61,11 +53,6 @@ function Profile({ user, favouriteCard, profileData }) {
                 <BottomNav />
               </div>
             </aside>
-            <div className="signOutbtn">
-              <Button variant="contained" onClick={handleLogout}>
-                SignOut
-              </Button>
-            </div>
           </Grid>
           <Grid item xs={12} md={8}>
             <div className="SwiperboxContainer">

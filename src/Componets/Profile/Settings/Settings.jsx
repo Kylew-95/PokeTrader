@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NavExtender from "../../NavExtender/NavExtender";
 import { Button, Grid, TextField } from "@mui/material";
 import { supabase } from "../../SupabaseLogin/SupabaseLogin";
+import { useNavigate } from "react-router-dom";
 
 function Settings({ user }) {
   const [settings, setSettings] = useState({
@@ -10,6 +11,7 @@ function Settings({ user }) {
   });
 
   const { settings_id, settings_username } = settings;
+  const navigate = useNavigate();
 
   function onChange(e) {
     const { name, value } = e.target;
@@ -66,6 +68,12 @@ function Settings({ user }) {
     }
   }
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/Login");
+    window.location.reload();
+  };
+
   return (
     <>
       <NavExtender />
@@ -85,6 +93,11 @@ function Settings({ user }) {
             Save
           </Button>
         </Grid>
+        <div className="signOutbtn">
+          <Button variant="contained" onClick={handleLogout}>
+            SignOut
+          </Button>
+        </div>
       </div>
     </>
   );
