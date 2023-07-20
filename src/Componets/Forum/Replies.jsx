@@ -4,16 +4,12 @@ import { TextField, Button } from "@mui/material";
 
 function Replies({ user, profileData }) {
   const [replyText, setReplyText] = useState("");
-  const forums_id = user?.id;
 
   const handleSubmitReply = async (e) => {
     e.preventDefault();
 
     // Fetch the current forum data for the thread
-    const { data: forumData, error } = await supabase
-      .from("forum")
-      .select("id", "forums_replies", "forums_id")
-      .eq("forums_id", forums_id);
+    const { data: forumData, error } = await supabase.from("forum").select("*");
 
     if (error) {
       console.error("Error fetching forum data:", error.message);
@@ -31,7 +27,7 @@ function Replies({ user, profileData }) {
       // If the forum thread doesn't exist, create a new entry with the provided forums_id
       const { data: newForumData, error: newForumError } = await supabase
         .from("forum")
-        .insert([{ forums_id: forums_id, forums_replies: [] }])
+        .insert([{ forums_replies: [] }])
         .select();
 
       if (newForumError) {
