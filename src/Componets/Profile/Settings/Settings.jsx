@@ -49,6 +49,7 @@ function Settings({ user }) {
             })
             .eq("settings_id", settings_id);
           if (!error) {
+            window.location.reload();
             console.log("Settings updated successfully!");
           }
         } else {
