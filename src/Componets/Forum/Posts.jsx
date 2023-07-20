@@ -4,7 +4,7 @@ import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import "./Posts.css"; // Import the CSS file for styling
 import Replies from "./Replies";
 
-function Posts({ user }) {
+function Posts({ user, profileData }) {
   const [showPosts, setShowPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
@@ -56,8 +56,15 @@ function Posts({ user }) {
                 <h3>Comment</h3>
                 <p>{post.forums_comments}</p>
                 <h4>Replies</h4>
-                <p>{post.forums_replies}</p>
-                <Replies user={user} />
+                {post.forums_replies !== null &&
+                post.forums_replies.length > 0 ? (
+                  <>
+                    <p>{post.forums_replies[0]?.content}</p>
+                    <Replies user={user} />
+                  </>
+                ) : (
+                  <p>No replies yet</p>
+                )}
               </div>
             </div>
           );
