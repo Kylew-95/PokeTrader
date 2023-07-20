@@ -40,7 +40,7 @@ function CreatePost({ profileData }) {
     try {
       const { data } = await supabase
         .from("forum")
-        .insert([
+        .upsert([
           {
             forums_username: profileData.settings_username,
             forums_title: title,
@@ -50,8 +50,8 @@ function CreatePost({ profileData }) {
           },
         ])
         .single();
+
       if (!data) {
-        // console.log("No data to insert");
         setTimeout(() => {
           window.location.reload();
         }, 1000);
