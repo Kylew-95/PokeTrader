@@ -56,13 +56,27 @@ function Posts({ user, profileData }) {
                 <h3>Comment</h3>
                 <p>{post.forums_comments}</p>
                 <h4>Replies</h4>
-                {post.forums_replies !== null &&
-                  post.forums_replies.length >
-                  (
-                    <>
-                      <p>{post.forums_replies[0]?.content}</p>
-                    </>
-                  )}
+                {post.forums_replies !== null && (
+                  <>
+                    <div className="forum-user">
+                      <div className="forum-avatar-reply">
+                        <Avatar
+                          sx={{
+                            width: 20,
+                            height: 20,
+                            bgcolor: "blue",
+                            fontSize: 10,
+                          }}
+                          alt={post.forums_replies[0]?.author}
+                          src={"/static/images/avatar/1.jpg"}
+                        />
+                        <p>{post.forums_replies[0]?.author}</p>
+                      </div>
+                      <p>{post.forums_replies[0]?.timestamp}</p>
+                    </div>
+                    <p>{post.forums_replies[0]?.content}</p>
+                  </>
+                )}
               </div>
               <Replies user={user} profileData={profileData} />
             </div>
