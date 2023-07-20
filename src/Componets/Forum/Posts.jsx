@@ -39,7 +39,7 @@ function Posts({ user }) {
         {showPosts.map((post) => {
           return (
             <div key={post.id} className="post-box">
-              <h1>{post.forums_title}:</h1>
+              <h1>{post.forums_title}</h1>
               <div className="forum-user">
                 <h2 className="forum-user">
                   <>
