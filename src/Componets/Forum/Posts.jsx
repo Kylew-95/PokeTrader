@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import "./Posts.css"; // Import the CSS file for styling
+import Replies from "./Replies";
 
-function Posts() {
+function Posts({ user }) {
   const [showPosts, setShowPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
@@ -54,6 +55,8 @@ function Posts() {
               <div className="forum-comment-box">
                 <h3>Comment</h3>
                 <p>{post.forums_comments}</p>
+                <h4>Replies</h4>
+                <Replies user={user} />
               </div>
             </div>
           );
