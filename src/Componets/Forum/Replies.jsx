@@ -8,11 +8,15 @@ function Replies({ forumId, profileData }) {
 
   useEffect(() => {
     const fetchForumData = async () => {
+      // Fetch the specific forum entry that matches the provided forumId
       const { data, error } = await supabase.from("forum").select("*");
-      console.log(data);
-      setForumData(data);
-    };
 
+      if (error) {
+        console.error("Error fetching forum data:", error.message);
+      } else {
+        setForumData(data);
+      }
+    };
     fetchForumData();
   }, []);
 
@@ -20,15 +24,12 @@ function Replies({ forumId, profileData }) {
     e.preventDefault();
 
     // Find the specific forum entry that matches the provided forumId
-    const forumIds = forumId.map((item) => item.id);
+    const currentForum = forumData.find((forum) => forum.id === forumId);
 
-    // Find the specific forum entry that matches the provided forumId
-    let currentForum = forumData.find((forum) => forumIds.includes(forum.id));
-
-    console.log("currentForum:", currentForum);
-
-    // console.log("forumData:", forumData);
-    // console.log("forumIds:", forumIds);
+    if (!currentForum) {
+      console.error("Forum not found with the provided ID.");
+      return;
+    }
 
     const newReply = {
       id: profileData?.settings_id,
@@ -38,6 +39,7 @@ function Replies({ forumId, profileData }) {
     };
 
     const currentReplies = currentForum.forums_replies || [];
+    console.log(currentReplies);
     const updatedReplies = [...currentReplies, newReply];
 
     // Update the database with the new replies (array of objects)
@@ -56,7 +58,6 @@ function Replies({ forumId, profileData }) {
 
     setReplyText("");
   };
-
   return (
     <>
       <div>

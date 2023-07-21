@@ -68,14 +68,6 @@ function App() {
     fetchUserData();
   }, []);
 
-  useEffect(() => {
-    async function fetchForumData() {
-      const { data, error } = await supabase.from("forum").select("id");
-      setForumId(data);
-    }
-    fetchForumData();
-  }, []);
-
   return (
     <>
       <Router>
@@ -88,9 +80,7 @@ function App() {
           <Route path="Settings" element={<Settings user={user} />} />
           <Route
             path="Forum"
-            element={
-              <Forum user={user} profileData={profileData} forumId={forumId} />
-            }
+            element={<Forum user={user} profileData={profileData} />}
           />
           <Route path="GymLeaders" element={<GymLeaders />} />
           <Route path="Home" element={<PokeDisplay />} />
