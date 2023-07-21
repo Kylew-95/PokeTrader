@@ -18,5 +18,6 @@ function Forum({ profileData, user }) {
     </>
   );
 }
+//
 
 export default Forum;
