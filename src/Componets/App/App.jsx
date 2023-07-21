@@ -17,8 +17,6 @@ function App() {
   // const [pokeData2, setPokeData2] = useState("");
   const [user, setUser] = useState(null);
   const [profileData, setProfileData] = useState(null);
-  const [forumId, setForumId] = useState(null);
-
   useEffect(() => {
     async function fetchData() {
       // Check if pokeData and pokeData.id are defined
