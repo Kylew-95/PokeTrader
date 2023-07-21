@@ -3,8 +3,7 @@ import { Avatar } from "@mui/material";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import "./Posts.css"; // Import the CSS file for styling
 import Replies from "./Replies";
-
-function Posts({ user, profileData }) {
+function Posts({ user, profileData, forumId }) {
   const [showPosts, setShowPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
@@ -78,7 +77,11 @@ function Posts({ user, profileData }) {
                   </>
                 )}
               </div>
-              <Replies user={user} profileData={profileData} />
+              <Replies
+                user={user}
+                profileData={profileData}
+                forumId={forumId}
+              />
             </div>
           );
         })}

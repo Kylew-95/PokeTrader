@@ -17,6 +17,8 @@ function App() {
   // const [pokeData2, setPokeData2] = useState("");
   const [user, setUser] = useState(null);
   const [profileData, setProfileData] = useState(null);
+  const [forumId, setForumId] = useState(null);
+
   useEffect(() => {
     async function fetchData() {
       // Check if pokeData and pokeData.id are defined
@@ -66,6 +68,14 @@ function App() {
     fetchUserData();
   }, []);
 
+  useEffect(() => {
+    async function fetchForumData() {
+      const { data, error } = await supabase.from("forum").select("id");
+      setForumId(data);
+    }
+    fetchForumData();
+  }, []);
+
   return (
     <>
       <Router>
@@ -78,7 +88,9 @@ function App() {
           <Route path="Settings" element={<Settings user={user} />} />
           <Route
             path="Forum"
-            element={<Forum user={user} profileData={profileData} />}
+            element={
+              <Forum user={user} profileData={profileData} forumId={forumId} />
+            }
           />
           <Route path="GymLeaders" element={<GymLeaders />} />
           <Route path="Home" element={<PokeDisplay />} />
