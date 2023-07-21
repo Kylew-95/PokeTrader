@@ -5,6 +5,7 @@ import { TextField, Button } from "@mui/material";
 function Replies({ forumId, profileData }) {
   const [replyText, setReplyText] = useState("");
   const [forumData, setForumData] = useState([]);
+
   useEffect(() => {
     const fetchForumData = async () => {
       // Fetch the specific forum entry that matches the provided forumId

@@ -3,7 +3,9 @@ import { Avatar } from "@mui/material";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import "./Posts.css"; // Import the CSS file for styling
 import Replies from "./Replies";
-function Posts({ user, profileData }) {
+import { Link } from "react-router-dom";
+
+function Posts({ user, profileData, userId }) {
   const [showPosts, setShowPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
@@ -40,16 +42,18 @@ function Posts({ user, profileData }) {
             <div key={post.id} className="post-box">
               <h1>{post.forums_title}</h1>
               <div className="forum-user">
-                <h2 className="forum-user">
-                  <>
-                    <Avatar
-                      sx={{ width: 32, height: 32, bgcolor: "orange" }}
-                      alt={post.forums_username}
-                      src={"/static/images/avatar/1.jpg"}
-                    />
-                    {post.forums_username}
-                  </>
-                </h2>
+                <Link to={`/Profile/${post.forums_user_id}`}>
+                  <h2 className="forum-user">
+                    <>
+                      <Avatar
+                        sx={{ width: 32, height: 32, bgcolor: "orange" }}
+                        alt={post.forums_username}
+                        src={"/static/images/avatar/1.jpg"}
+                      />
+                      {post.forums_username}
+                    </>
+                  </h2>
+                </Link>
               </div>
               <div className="forum-comment-box">
                 <h3>Comment</h3>
@@ -58,19 +62,21 @@ function Posts({ user, profileData }) {
                 {post.forums_replies !== null &&
                   post.forums_replies.map((reply, index) => (
                     <div key={index} className="forum-user">
-                      <div className="forum-avatar-reply">
-                        <Avatar
-                          sx={{
-                            width: 20,
-                            height: 20,
-                            bgcolor: "blue",
-                            fontSize: 10,
-                          }}
-                          alt={reply.author}
-                          src={"/static/images/avatar/1.jpg"}
-                        />
-                        <p>{reply.author}</p>
-                      </div>
+                      <Link to={`/Profile/${reply.replyUserId}`}>
+                        <div className="forum-avatar-reply">
+                          <Avatar
+                            sx={{
+                              width: 20,
+                              height: 20,
+                              bgcolor: "blue",
+                              fontSize: 10,
+                            }}
+                            alt={reply.author}
+                            src={"/static/images/avatar/1.jpg"}
+                          />
+                          <p>{reply.author}</p>
+                        </div>
+                      </Link>
                       <p>{reply.content}</p>
                       <p>{reply.created_time}</p>
                     </div>
