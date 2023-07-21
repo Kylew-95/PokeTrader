@@ -5,20 +5,23 @@ import { TextField, Button } from "@mui/material";
 function Replies({ forumId, profileData }) {
   const [replyText, setReplyText] = useState("");
   const [forumData, setForumData] = useState([]);
-
   useEffect(() => {
     const fetchForumData = async () => {
       // Fetch the specific forum entry that matches the provided forumId
-      const { data, error } = await supabase.from("forum").select("*");
+      const { data: forumEntry, error } = await supabase
+        .from("forum")
+        .select("*")
+        .eq("id", forumId)
+        .single();
 
       if (error) {
         console.error("Error fetching forum data:", error.message);
       } else {
-        setForumData(data);
+        setForumData(forumEntry ? [forumEntry] : []);
       }
     };
     fetchForumData();
-  }, []);
+  }, [forumId]);
 
   const handleSubmitReply = async (e) => {
     e.preventDefault();
@@ -30,19 +33,17 @@ function Replies({ forumId, profileData }) {
       console.error("Forum not found with the provided ID.");
       return;
     }
-
     const newReply = {
-      id: profileData?.settings_id,
+      replyId: currentForum.id,
+      replyUserId: profileData?.settings_id,
       content: replyText,
       author: profileData?.settings_username,
-      timestamp: new Date().toISOString(),
+      created_time: new Date().toUTCString(),
     };
-
     const currentReplies = currentForum.forums_replies || [];
-    console.log(currentReplies);
     const updatedReplies = [...currentReplies, newReply];
-
     // Update the database with the new replies (array of objects)
+    // eslint-disable-next-line no-unused-vars
     const { data: updatedData, error: updateError } = await supabase
       .from("forum")
       .update({
@@ -51,6 +52,10 @@ function Replies({ forumId, profileData }) {
       .eq("id", currentForum.id)
       .select();
 
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+
     if (updateError) {
       console.error("Error updating replies:", updateError.message);
       return;
@@ -58,6 +63,7 @@ function Replies({ forumId, profileData }) {
 
     setReplyText("");
   };
+
   return (
     <>
       <div>

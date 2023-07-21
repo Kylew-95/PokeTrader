@@ -26,7 +26,7 @@ function Posts({ user, profileData }) {
         Loading...
       </div>
     );
-  } else if (showPosts.length === null) {
+  } else if (showPosts.length === 0) {
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
         No posts available here
@@ -72,7 +72,7 @@ function Posts({ user, profileData }) {
                         <p>{reply.author}</p>
                       </div>
                       <p>{reply.content}</p>
-                      <p>{reply.timestamp}</p>
+                      <p>{reply.created_time}</p>
                     </div>
                   ))}
               </div>
