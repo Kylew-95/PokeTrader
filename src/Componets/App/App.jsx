@@ -6,13 +6,19 @@ import PokeDisplay from "../PokeDisplay/PokeDisplay";
 import { supabase } from "../SupabaseLogin/SupabaseLogin.jsx";
 import SupabaseLogin from "../SupabaseLogin/SupabaseLogin";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 import HomePageVerticalSwiper from "./HompageVerticalSwiper/HomePageVerticalSwiper";
 import Settings from "../Profile/Settings/Settings";
 import GymLeaders from "../GymLeaders/GymLeaders";
 import Forum from "../Forum/Forum";
 
 function App() {
+  let userId = useParams();
   const [pokeData, setPokeData] = useState("");
   // const [pokeData2, setPokeData2] = useState("");
   const [user, setUser] = useState(null);
@@ -68,6 +74,17 @@ function App() {
     fetchUserData();
   }, []);
 
+  userId = user ? user.user_metadata?.full_name || user?.id : null;
+  useEffect(() => {
+    async function fetchUserProfileData() {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("id", userId);
+    }
+    fetchUserProfileData();
+  }, [userId]);
+
   return (
     <>
       <Router>
@@ -75,17 +92,20 @@ function App() {
           user={user}
           pokeData={pokeData}
           profileData={profileData}
+          userId={userId}
         />
         <Routes>
           <Route path="Settings" element={<Settings user={user} />} />
           <Route
             path="Forum"
-            element={<Forum user={user} profileData={profileData} />}
+            element={
+              <Forum user={user} profileData={profileData} userId={userId} />
+            }
           />
           <Route path="GymLeaders" element={<GymLeaders />} />
           <Route path="Home" element={<PokeDisplay />} />
           <Route
-            path="Profile"
+            path="Profile/:userId"
             element={
               <Profile
                 user={user}

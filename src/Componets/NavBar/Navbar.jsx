@@ -16,10 +16,11 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 
-const pages = ["Home", "GymLeaders", "Forum"];
-const settings = ["Profile", "Settings"];
 //
-function ResponsiveNavBar({ user, pokeData, profileData }) {
+function ResponsiveNavBar({ user, pokeData, profileData, userId }) {
+  const pages = ["Home", "GymLeaders", "Forum"];
+  const settings = [`/Profile/${userId}`, "Settings"];
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [transparency, setTransparency] = useState("rgba(240, 248, 255, 0)");
