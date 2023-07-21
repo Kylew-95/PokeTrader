@@ -1,66 +1,66 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import { TextField, Button } from "@mui/material";
 
-function Replies({ forumId, profileData }) {
+function Replies({ user, profileData }) {
   const [replyText, setReplyText] = useState("");
-  const [forumData, setForumData] = useState([]);
-  useEffect(() => {
-    const fetchForumData = async () => {
-      // Fetch the specific forum entry that matches the provided forumId
-      const { data: forumEntry, error } = await supabase
-        .from("forum")
-        .select("*")
-        .eq("id", forumId)
-        .single();
-
-      if (error) {
-        console.error("Error fetching forum data:", error.message);
-      } else {
-        setForumData(forumEntry ? [forumEntry] : []);
-      }
-    };
-    fetchForumData();
-  }, [forumId]);
 
   const handleSubmitReply = async (e) => {
     e.preventDefault();
 
-    // Find the specific forum entry that matches the provided forumId
-    const currentForum = forumData.find((forum) => forum.id === forumId);
+    // Fetch the current forum data for the thread
+    const { data: forumData, error } = await supabase.from("forum").select("*");
 
-    if (!currentForum) {
-      console.error("Forum not found with the provided ID.");
+    if (error) {
+      console.error("Error fetching forum data:", error.message);
       return;
     }
+
+    let forumIdToUpdate;
+    let currentReplies = [];
+
+    if (forumData && forumData.length > 0) {
+      // If the forum thread exists, use the first entry
+      forumIdToUpdate = forumData[0].id;
+      currentReplies = forumData[0].forums_replies || [];
+    } else {
+      // If the forum thread doesn't exist, create a new entry with the provided forums_id
+      const { data: newForumData, error: newForumError } = await supabase
+        .from("forum")
+        .insert([{ forums_replies: [] }])
+        .select();
+
+      if (newForumError) {
+        console.error("Error creating new forum entry:", newForumError.message);
+        return;
+      }
+
+      forumIdToUpdate = newForumData[0].id;
+    }
+
     const newReply = {
-      replyId: currentForum.id,
-      replyUserId: profileData?.settings_id,
+      id: profileData?.settings_id,
       content: replyText,
       author: profileData?.settings_username,
-      created_time: new Date().toUTCString(),
+      timestamp: new Date().toISOString(),
     };
-    const currentReplies = currentForum.forums_replies || [];
+    console.log(newReply); // Check the console to see the new reply object
+
     const updatedReplies = [...currentReplies, newReply];
+
     // Update the database with the new replies (array of objects)
-    // eslint-disable-next-line no-unused-vars
-    const { data: updatedData, error: updateError } = await supabase
+    const { updateError } = await supabase
       .from("forum")
       .update({
         forums_replies: updatedReplies,
       })
-      .eq("id", currentForum.id)
+      .eq("id", forumIdToUpdate)
       .select();
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
 
     if (updateError) {
       console.error("Error updating replies:", updateError.message);
       return;
     }
-
     setReplyText("");
   };
 
