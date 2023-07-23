@@ -11,6 +11,7 @@ import {
   Route,
   Routes,
   useParams,
+  useNavigate,
 } from "react-router-dom";
 import HomePageVerticalSwiper from "./HompageVerticalSwiper/HomePageVerticalSwiper";
 import Settings from "../Profile/Settings/Settings";
@@ -18,13 +19,13 @@ import GymLeaders from "../GymLeaders/GymLeaders";
 import Forum from "../Forum/Forum";
 
 function App() {
-  let userId = useParams();
   const [pokeData, setPokeData] = useState("");
   // const [pokeData2, setPokeData2] = useState("");
   const [user, setUser] = useState(null);
   const [profileData, setProfileData] = useState(null);
   const [forumId, setForumId] = useState(null);
 
+  // s
   useEffect(() => {
     async function fetchData() {
       // Check if pokeData and pokeData.id are defined
@@ -74,16 +75,15 @@ function App() {
     fetchUserData();
   }, []);
 
-  userId = user ? user.user_metadata?.full_name || user?.id : null;
   useEffect(() => {
     async function fetchUserProfileData() {
       const { data, error } = await supabase
         .from("users")
         .select("*")
-        .eq("id", userId);
+        .eq("id", user?.id);
     }
     fetchUserProfileData();
-  }, [userId]);
+  }, [user?.id]);
 
   return (
     <>
@@ -92,15 +92,13 @@ function App() {
           user={user}
           pokeData={pokeData}
           profileData={profileData}
-          userId={userId}
+          userId={user?.id}
         />
         <Routes>
           <Route path="Settings" element={<Settings user={user} />} />
           <Route
             path="Forum"
-            element={
-              <Forum user={user} profileData={profileData} userId={userId} />
-            }
+            element={<Forum user={user} profileData={profileData} />}
           />
           <Route path="GymLeaders" element={<GymLeaders />} />
           <Route path="Home" element={<PokeDisplay />} />
@@ -114,7 +112,7 @@ function App() {
               />
             }
           />
-          <Route path="/Login" element={<SupabaseLogin />} />
+          <Route path="/Login" element={<SupabaseLogin userId={user?.id} />} />
           <Route
             path="/"
             element={

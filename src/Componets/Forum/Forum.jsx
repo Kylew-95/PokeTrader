@@ -10,7 +10,7 @@ function Forum({ profileData, user, userId }) {
     <>
       <NavExtender />
       <div className="Forum">
-        <Posts profileData={profileData} user={user} userId />
+        <Posts profileData={profileData} user={user} userId={userId} />
       </div>
       <div className="createPost">
         <CreatePost profileData={profileData} />

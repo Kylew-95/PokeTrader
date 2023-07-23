@@ -3,11 +3,15 @@ import { Avatar } from "@mui/material";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
 import "./Posts.css"; // Import the CSS file for styling
 import Replies from "./Replies";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Posts({ user, profileData, userId }) {
+function Posts({ user, profileData }) {
   const [showPosts, setShowPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
+
+  // const { userId } = useParams();
+
+  const navigateToProfile = useNavigate();
 
   async function getPosts() {
     const { data } = await supabase
@@ -21,6 +25,15 @@ function Posts({ user, profileData, userId }) {
   useEffect(() => {
     getPosts();
   }, []);
+
+  const handleProfileClick = (forumsUserId) => {
+    // Compare user?.id with forumsUserId to determine the navigation
+    if (user?.id === forumsUserId) {
+      navigateToProfile(`/Profile/${user?.id}`);
+    } else {
+      navigateToProfile(`/Profile/${forumsUserId}`);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -62,21 +75,22 @@ function Posts({ user, profileData, userId }) {
                 {post.forums_replies !== null &&
                   post.forums_replies.map((reply, index) => (
                     <div key={index} className="forum-user">
-                      <Link to={`/Profile/${reply.replyUserId}`}>
-                        <div className="forum-avatar-reply">
-                          <Avatar
-                            sx={{
-                              width: 20,
-                              height: 20,
-                              bgcolor: "blue",
-                              fontSize: 10,
-                            }}
-                            alt={reply.author}
-                            src={"/static/images/avatar/1.jpg"}
-                          />
-                          <p>{reply.author}</p>
-                        </div>
-                      </Link>
+                      <div className="forum-avatar-reply">
+                        <Avatar
+                          onClick={() =>
+                            handleProfileClick(reply.forums_user_id)
+                          }
+                          sx={{
+                            width: 20,
+                            height: 20,
+                            bgcolor: "blue",
+                            fontSize: 10,
+                          }}
+                          alt={reply.author}
+                          src={"/static/images/avatar/1.jpg"}
+                        />
+                        <p>{reply.author}</p>
+                      </div>
                       <p>{reply.content}</p>
                       <p>{reply.created_time}</p>
                     </div>
