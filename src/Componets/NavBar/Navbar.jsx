@@ -14,12 +14,15 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../SupabaseLogin/SupabaseLogin";
 
 //
 function ResponsiveNavBar({ user, pokeData, profileData, userId }) {
   const pages = ["Home", "GymLeaders", "Forum"];
-  const settings = [`/Profile/${userId}`, "Settings"];
+  const settings = [`Profile/${userId}`, "Settings", "Logout"];
+
+  const navigateToLogout = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -50,12 +53,32 @@ function ResponsiveNavBar({ user, pokeData, profileData, userId }) {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (event) => {
     setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigateToLogout("/Login");
+    window.location.reload();
+  };
+
+  const handleMenuClose = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleMenuItemClick = (item) => {
+    if (item === "Logout") {
+      handleLogout();
+    } else {
+      // Handle other menu item clicks here if needed
+      // For now, just close the menu
+      handleMenuClose();
+    }
   };
   //
   const handleUpperCase = () => {
@@ -208,7 +231,10 @@ function ResponsiveNavBar({ user, pokeData, profileData, userId }) {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem
+                      key={setting}
+                      onClick={() => handleMenuItemClick(setting)}
+                    >
                       <Typography textAlign="center">
                         <Link
                           style={{ textDecoration: "none", color: "black" }}

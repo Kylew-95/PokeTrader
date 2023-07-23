@@ -12,7 +12,7 @@ export const supabase = createClient(
   process.env.REACT_APP_POKE_SB_KEY
 );
 
-export default function Login() {
+export default function Login({ userId }) {
   const [session, setSession] = useState(null);
   const navigate = useNavigate();
 
@@ -26,13 +26,13 @@ export default function Login() {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (session) {
-        navigate("/Profile");
+        navigate(`Profile/${userId}`);
         window.location.reload();
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, userId]);
 
   return (
     <>
