@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import CardPopup from "../CardPopup/CardPopup";
 import Grid from "@mui/material/Grid";
 import { supabase } from "../SupabaseLogin/SupabaseLogin";
+// import exchangeRates from "exchange-rates-api";
 
 import { rareColors, typeColors } from "./Types";
 import "./PokeDisplay.css";
@@ -13,6 +14,37 @@ import { Button } from "@mui/material";
 function PokeDisplay({ pokeData, pokeData2, userid }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCard, setSelectedCard] = useState(null);
+  // const [exchangeRate, setExchangeRate] = useState(null);
+
+  // // Exchange rate API
+  // const fromCurrency = "USD";
+  // const toCurrency = "GBP";
+  // const amountToConvert = pokeData.cardmarket?.prices.trendPrice || 0;
+
+  // useEffect(() => {
+  //   async function fetchExchangeRate() {
+  //     try {
+  //       const response = await fetch(
+  //         `https://api.apilayer.com/currency_data/convert?base=${fromCurrency}&symbols=${toCurrency}&amount=${amountToConvert}`,
+  //         {
+  //           headers: {
+  //             apikey: process.env.REACT_APP_EXCHANGE_RATE_API_KEY,
+  //           },
+  //         }
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error(`Request failed with status: ${response.status}`);
+  //       }
+  //       const data = await response.json();
+  //       console.log("Exchange Rate Data:", data);
+  //       setExchangeRate(data.rates[toCurrency]);
+  //     } catch (error) {
+  //       console.log("API Response:", error); // If using the built-in fetch API.
+  //     }
+  //   }
+  //   fetchExchangeRate();
+  // }, [fromCurrency, toCurrency, amountToConvert]);
+
   // const [searchTerm, setSearchTerm] = useState("");
 
   // const handleChange = (e) => {
@@ -165,7 +197,7 @@ function PokeDisplay({ pokeData, pokeData2, userid }) {
                 </Button>
                 <h3>
                   <span id="market">
-                    ${poksData.cardmarket?.prices.trendPrice}
+                    £{poksData.cardmarket?.prices.trendPrice}
                   </span>
                 </h3>
               </div>

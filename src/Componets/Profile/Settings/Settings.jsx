@@ -38,7 +38,7 @@ function Settings({ user }) {
         const { data, error } = await supabase
           .from("settings")
           .select("*")
-          .eq("settings_id", settings_id)
+          .eq("settings_id", user?.id)
           .single();
         if (!error && data) {
           // Update the existing record
@@ -47,7 +47,7 @@ function Settings({ user }) {
             .update({
               settings_username: settings_username,
             })
-            .eq("settings_id", settings_id);
+            .eq("settings_id", user?.id);
           if (!error) {
             window.location.reload();
             console.log("Settings updated successfully!");
@@ -82,7 +82,7 @@ function Settings({ user }) {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
-              id="settings_username"
+              id="settings_id"
               label="Username"
               name="settings_username"
               value={settings_username}

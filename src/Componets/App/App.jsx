@@ -17,6 +17,7 @@ import HomePageVerticalSwiper from "./HompageVerticalSwiper/HomePageVerticalSwip
 import Settings from "../Profile/Settings/Settings";
 import GymLeaders from "../GymLeaders/GymLeaders";
 import Forum from "../Forum/Forum";
+import NewThing from "./NewThing";
 
 function App() {
   const [pokeData, setPokeData] = useState("");
@@ -25,7 +26,6 @@ function App() {
   const [profileData, setProfileData] = useState(null);
   const [forumId, setForumId] = useState(null);
 
-  // s
   useEffect(() => {
     async function fetchData() {
       // Check if pokeData and pokeData.id are defined
@@ -134,6 +134,7 @@ function App() {
                     // pokeData2={pokeData2}
                     userid={user}
                   />
+                  <NewThing />
                 </section>
               </>
             }

@@ -24,6 +24,13 @@ function ResponsiveNavBar({ user, pokeData, profileData, userId }) {
 
   const navigateToLogout = useNavigate();
 
+  // const { userId } = useParams();
+  // const navigateToUsersProfile = useNavigate();
+
+  // const handleProfileClick = (userId) => {
+  //   navigateToUsersProfile(`/Profile/${userId}`);
+  // };
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [transparency, setTransparency] = useState("rgba(240, 248, 255, 0)");
