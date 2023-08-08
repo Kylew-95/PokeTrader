@@ -65,7 +65,7 @@ function App() {
     }
     fetchProfileData();
   }, [setProfileData, user?.id]);
-
+  //
   useEffect(() => {
     async function fetchUserData() {
       const user = await supabase.auth.getUser();
